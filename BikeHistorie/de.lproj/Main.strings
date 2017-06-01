@@ -1,0 +1,105 @@
+
+/* Class = "UILabel"; text = "Datum"; ObjectID = "0ON-vP-tKI"; */
+"0ON-vP-tKI.text" = "Datum";
+
+/* Class = "UITextField"; accessibilityHint = "TT.MM.JJJJ"; ObjectID = "6yM-wb-NVU"; */
+"6yM-wb-NVU.accessibilityHint" = "TT.MM.JJJJ";
+
+/* Class = "UILabel"; text = "Kurven"; ObjectID = "8OW-4L-U9S"; */
+"8OW-4L-U9S.text" = "Kurven";
+
+/* Class = "UILabel"; text = "TemperaturLabel"; ObjectID = "Ab8-Md-aHe"; */
+"Ab8-Md-aHe.text" = "TemperaturLabel";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "D6m-Ty-fxC"; */
+"D6m-Ty-fxC.text" = "1";
+
+/* Class = "UILabel"; text = "DistanceLabel"; ObjectID = "EHa-oK-L6D"; */
+"EHa-oK-L6D.text" = "DistanceLabel";
+
+/* Class = "UILabel"; text = "langsam"; ObjectID = "H4M-Q7-UX4"; */
+"H4M-Q7-UX4.text" = "langsam";
+
+/* Class = "UITableViewController"; title = "Touren"; ObjectID = "I07-p0-TgO"; */
+"I07-p0-TgO.title" = "Touren";
+
+/* Class = "UILabel"; text = "Temperatur"; ObjectID = "IYI-yb-6dK"; */
+"IYI-yb-6dK.text" = "Temperatur";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "K8u-mO-XIZ"; */
+"K8u-mO-XIZ.text" = "Title";
+
+/* Class = "UILabel"; text = "Kilometer Stand"; ObjectID = "KWU-jT-pav"; */
+"KWU-jT-pav.text" = "Kilometer Stand";
+
+/* Class = "UIButton"; normalTitle = "vorher"; ObjectID = "MUW-h2-uM7"; */
+"MUW-h2-uM7.normalTitle" = "vorher";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "PaX-ML-2oe"; */
+"PaX-ML-2oe.text" = "1";
+
+/* Class = "UILabel"; text = "schnell"; ObjectID = "QGc-jk-Zyd"; */
+"QGc-jk-Zyd.text" = "schnell";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "QQx-cP-3YO"; */
+"QQx-cP-3YO.text" = "1";
+
+/* Class = "UISlider"; accessibilityHint = "schnelles Fahren"; ObjectID = "Qro-pb-UQ6"; */
+"Qro-pb-UQ6.accessibilityHint" = "schnelles Fahren";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "S3k-kX-CiL"; */
+"S3k-kX-CiL.text" = "1";
+
+/* Class = "UILabel"; text = "Pausen"; ObjectID = "ThS-Xh-lRc"; */
+"ThS-Xh-lRc.text" = "Pausen";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "WIN-bL-qwZ"; */
+"WIN-bL-qwZ.text" = "1";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "WzX-Q0-W6L"; */
+"WzX-Q0-W6L.text" = "Label";
+
+/* Class = "UILabel"; text = "LabelDate"; ObjectID = "YGl-5G-CUq"; */
+"YGl-5G-CUq.text" = "LabelDate";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "YZG-qT-Sq6"; */
+"YZG-qT-Sq6.text" = "1";
+
+/* Class = "UILabel"; text = "DurationLabel"; ObjectID = "cco-2R-i7I"; */
+"cco-2R-i7I.text" = "DurationLabel";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "cwd-g6-5ds"; */
+"cwd-g6-5ds.title" = "Title";
+
+/* Class = "UITextField"; accessibilityHint = "Bsp. 4"; ObjectID = "dR2-uQ-XDk"; */
+"dR2-uQ-XDk.accessibilityHint" = "Bsp. 4";
+
+/* Class = "UITextField"; accessibilityHint = "Bsp. 20"; ObjectID = "fSz-jg-UsT"; */
+"fSz-jg-UsT.accessibilityHint" = "Bsp. 20";
+
+/* Class = "UILabel"; text = "anfahren"; ObjectID = "ibW-ws-Uc6"; */
+"ibW-ws-Uc6.text" = "anfahren";
+
+/* Class = "UILabel"; text = "abbiegen"; ObjectID = "kZ8-8F-OfL"; */
+"kZ8-8F-OfL.text" = "abbiegen";
+
+/* Class = "UITextField"; accessibilityHint = "Bsp. 16000"; ObjectID = "rkb-RZ-mdE"; */
+"rkb-RZ-mdE.accessibilityHint" = "Bsp. 16000";
+
+/* Class = "UILabel"; text = "bremsen"; ObjectID = "tJw-yT-uhT"; */
+"tJw-yT-uhT.text" = "bremsen";
+
+/* Class = "UILabel"; text = "TourBreakLabel"; ObjectID = "tnf-Sn-umN"; */
+"tnf-Sn-umN.text" = "TourBreakLabel";
+
+/* Class = "UISlider"; accessibilityHint = "langsam fahren"; ObjectID = "vLX-j1-oRM"; */
+"vLX-j1-oRM.accessibilityHint" = "langsam fahren";
+
+/* Class = "UIButton"; normalTitle = "dananch"; ObjectID = "vrC-I1-fRM"; */
+"vrC-I1-fRM.normalTitle" = "dananch";
+
+/* Class = "UILabel"; text = "gefahrene Kilometer"; ObjectID = "wMt-YI-jsp"; */
+"wMt-YI-jsp.text" = "gefahrene Kilometer";
+
+/* Class = "UITextField"; accessibilityHint = "Bsp. 23"; ObjectID = "xVc-tf-P6g"; */
+"xVc-tf-P6g.accessibilityHint" = "Bsp. 23";

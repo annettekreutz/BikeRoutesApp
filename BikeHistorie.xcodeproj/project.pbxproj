@@ -7,12 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6725F11C1EDD510E00D43EED /* NewBikeTourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725F11B1EDD510E00D43EED /* NewBikeTourViewController.swift */; };
+		6725F11E1EDD639D00D43EED /* BikeRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725F11D1EDD639D00D43EED /* BikeRoute.swift */; };
+		6725F1201EDD9BD500D43EED /* BikeRouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725F11F1EDD9BD500D43EED /* BikeRouteStore.swift */; };
+		6725F1221EDDABBF00D43EED /* BikeRouteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725F1211EDDABBF00D43EED /* BikeRouteTableViewController.swift */; };
+		6725F1241EDDE70500D43EED /* BikeRouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725F1231EDDE70500D43EED /* BikeRouteTableViewCell.swift */; };
 		67D3E47F1ED87ADF000EA75B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E47E1ED87ADF000EA75B /* AppDelegate.swift */; };
-		67D3E4811ED87ADF000EA75B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E4801ED87ADF000EA75B /* ViewController.swift */; };
 		67D3E4841ED87ADF000EA75B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67D3E4821ED87ADF000EA75B /* Main.storyboard */; };
 		67D3E4861ED87ADF000EA75B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67D3E4851ED87ADF000EA75B /* Assets.xcassets */; };
 		67D3E4891ED87ADF000EA75B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67D3E4871ED87ADF000EA75B /* LaunchScreen.storyboard */; };
 		67D3E4941ED87ADF000EA75B /* BikeHistorieTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D3E4931ED87ADF000EA75B /* BikeHistorieTests.swift */; };
+		67DBFA261EDEF697005E56D9 /* BikesEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DBFA251EDEF697005E56D9 /* BikesEnums.swift */; };
+		67DBFA2A1EDF05C7005E56D9 /* DriveReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DBFA291EDF05C7005E56D9 /* DriveReviewViewController.swift */; };
+		67DBFA2C1EDFFE80005E56D9 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DBFA2B1EDFFE80005E56D9 /* DateUtil.swift */; };
+		67DBFA301EE03B95005E56D9 /* ReviewBikeCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DBFA2F1EE03B95005E56D9 /* ReviewBikeCriteria.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,9 +34,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6725F11B1EDD510E00D43EED /* NewBikeTourViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBikeTourViewController.swift; sourceTree = "<group>"; };
+		6725F11D1EDD639D00D43EED /* BikeRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BikeRoute.swift; sourceTree = "<group>"; };
+		6725F11F1EDD9BD500D43EED /* BikeRouteStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BikeRouteStore.swift; sourceTree = "<group>"; };
+		6725F1211EDDABBF00D43EED /* BikeRouteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BikeRouteTableViewController.swift; sourceTree = "<group>"; };
+		6725F1231EDDE70500D43EED /* BikeRouteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BikeRouteTableViewCell.swift; sourceTree = "<group>"; };
 		67D3E47B1ED87ADF000EA75B /* BikeHistorie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BikeHistorie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67D3E47E1ED87ADF000EA75B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		67D3E4801ED87ADF000EA75B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		67D3E4831ED87ADF000EA75B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		67D3E4851ED87ADF000EA75B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		67D3E4881ED87ADF000EA75B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,6 +48,12 @@
 		67D3E48F1ED87ADF000EA75B /* BikeHistorieTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BikeHistorieTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		67D3E4931ED87ADF000EA75B /* BikeHistorieTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeHistorieTests.swift; sourceTree = "<group>"; };
 		67D3E4951ED87ADF000EA75B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		67DBFA251EDEF697005E56D9 /* BikesEnums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BikesEnums.swift; sourceTree = "<group>"; };
+		67DBFA291EDF05C7005E56D9 /* DriveReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DriveReviewViewController.swift; path = ../DriveReviewViewController.swift; sourceTree = "<group>"; };
+		67DBFA2B1EDFFE80005E56D9 /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateUtil.swift; path = BikeHistorie/DateUtil.swift; sourceTree = "<group>"; };
+		67DBFA2D1EE019FC005E56D9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		67DBFA2E1EE019FC005E56D9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		67DBFA2F1EE03B95005E56D9 /* ReviewBikeCriteria.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewBikeCriteria.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,9 +74,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6725F11A1EDD507100D43EED /* docu */ = {
+			isa = PBXGroup;
+			children = (
+				67D3E4851ED87ADF000EA75B /* Assets.xcassets */,
+				67D3E4871ED87ADF000EA75B /* LaunchScreen.storyboard */,
+				67D3E48A1ED87ADF000EA75B /* Info.plist */,
+			);
+			name = docu;
+			sourceTree = "<group>";
+		};
 		67D3E4721ED87ADF000EA75B = {
 			isa = PBXGroup;
 			children = (
+				67DBFA2B1EDFFE80005E56D9 /* DateUtil.swift */,
+				67DBFA251EDEF697005E56D9 /* BikesEnums.swift */,
+				6725F1231EDDE70500D43EED /* BikeRouteTableViewCell.swift */,
+				6725F11D1EDD639D00D43EED /* BikeRoute.swift */,
+				67DBFA2F1EE03B95005E56D9 /* ReviewBikeCriteria.swift */,
+				6725F11F1EDD9BD500D43EED /* BikeRouteStore.swift */,
 				67D3E47D1ED87ADF000EA75B /* BikeHistorie */,
 				67D3E4921ED87ADF000EA75B /* BikeHistorieTests */,
 				67D3E47C1ED87ADF000EA75B /* Products */,
@@ -77,12 +111,12 @@
 		67D3E47D1ED87ADF000EA75B /* BikeHistorie */ = {
 			isa = PBXGroup;
 			children = (
-				67D3E47E1ED87ADF000EA75B /* AppDelegate.swift */,
-				67D3E4801ED87ADF000EA75B /* ViewController.swift */,
 				67D3E4821ED87ADF000EA75B /* Main.storyboard */,
-				67D3E4851ED87ADF000EA75B /* Assets.xcassets */,
-				67D3E4871ED87ADF000EA75B /* LaunchScreen.storyboard */,
-				67D3E48A1ED87ADF000EA75B /* Info.plist */,
+				67DBFA291EDF05C7005E56D9 /* DriveReviewViewController.swift */,
+				6725F1211EDDABBF00D43EED /* BikeRouteTableViewController.swift */,
+				6725F11B1EDD510E00D43EED /* NewBikeTourViewController.swift */,
+				67D3E47E1ED87ADF000EA75B /* AppDelegate.swift */,
+				6725F11A1EDD507100D43EED /* docu */,
 			);
 			path = BikeHistorie;
 			sourceTree = "<group>";
@@ -199,8 +233,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67D3E4811ED87ADF000EA75B /* ViewController.swift in Sources */,
+				6725F11E1EDD639D00D43EED /* BikeRoute.swift in Sources */,
+				67DBFA301EE03B95005E56D9 /* ReviewBikeCriteria.swift in Sources */,
+				6725F11C1EDD510E00D43EED /* NewBikeTourViewController.swift in Sources */,
+				67DBFA261EDEF697005E56D9 /* BikesEnums.swift in Sources */,
+				6725F1241EDDE70500D43EED /* BikeRouteTableViewCell.swift in Sources */,
+				6725F1201EDD9BD500D43EED /* BikeRouteStore.swift in Sources */,
+				67DBFA2C1EDFFE80005E56D9 /* DateUtil.swift in Sources */,
+				67DBFA2A1EDF05C7005E56D9 /* DriveReviewViewController.swift in Sources */,
 				67D3E47F1ED87ADF000EA75B /* AppDelegate.swift in Sources */,
+				6725F1221EDDABBF00D43EED /* BikeRouteTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +269,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				67D3E4831ED87ADF000EA75B /* Base */,
+				67DBFA2D1EE019FC005E56D9 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -235,6 +278,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				67D3E4881ED87ADF000EA75B /* Base */,
+				67DBFA2E1EE019FC005E56D9 /* de */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -246,6 +290,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -297,6 +342,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -408,6 +454,7 @@
 				67D3E49A1ED87ADF000EA75B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		67D3E49B1ED87ADF000EA75B /* Build configuration list for PBXNativeTarget "BikeHistorieTests" */ = {
 			isa = XCConfigurationList;
@@ -416,6 +463,7 @@
 				67D3E49D1ED87ADF000EA75B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

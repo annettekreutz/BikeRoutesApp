@@ -8,8 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class FirstViewController: UIViewController {
+ 
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +21,15 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+ 
+    
+    @IBAction func unwind(from segue: UIStoryboardSegue) {
+        //guard let second = segue.source as? SecondViewController else { return }
+        //////guard let first = segue.destination as? FirstViewController else { return }
+        
+        ////first.textField.text = "Bin wieder da!"
+        
+        //second.text = first.textField.text
+    }
 }
 
