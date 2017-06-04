@@ -27,7 +27,19 @@ class BikeRouteTableViewController : UITableViewController {
         }
         
     }
-    
+    func calcReview (reviewBikeCriteria : ReviewBikeCriteria) -> Int{
+        var allNumbers = Int()
+        let count = reviewBikeCriteria.mapEnumCriteria.count
+        for bike in reviewBikeCriteria.mapEnumCriteria{
+            let enumCriteria = bike.key
+            let destinationCrit  = reviewBikeCriteria.mapEnumCriteria[enumCriteria]
+            let number : Int = destinationCrit!.rawValue
+            allNumbers += number
+            print (allNumbers, number)
+        }
+        let result = allNumbers/count
+        return  result
+    }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         switch indexPath.section {
@@ -37,23 +49,28 @@ class BikeRouteTableViewController : UITableViewController {
             let bikeRoute = bikeRouteStore.getAllBikeRoutes()[indexPath.row]
             cell.dateLabel.text =   DateFormatter.standard.string(from: bikeRoute.date)
             cell.durationLabel.text = "Kilometerstand: \(bikeRoute.driveDuration)"
-            cell.distanceLabel.text =  "gefahren: \(bikeRoute.distance)"
+            cell.distanceLabel.text =  "gefahren: \(bikeRoute.distance) km"
             cell.tourBreakCountLabel.text =  "Pausen: \(bikeRoute.tourBreakCount)"
-            cell.temperaturLabel.text =  "Temperatur: \(bikeRoute.temperatur)"
+            cell.temperaturLabel.text =  "Temperatur: \(bikeRoute.temperatur) Grad"
             //if var count = bikeRoute.finishCriteria.mapEnumCriteria.count{
-            let mapEnumCriteria = bikeRoute.finishCriteria.mapEnumCriteria
-            var cnt : Int? = mapEnumCriteria.count
-            if cnt != nil {
-                for bike in mapEnumCriteria {
-                    let enumCriteria = bike.key
-                    let destinationCrit  = mapEnumCriteria[enumCriteria]
-                    var destinationFl = Int()
-                    if let tmp = destinationCrit?.rawValue {
-                        destinationFl = Int(tmp)
-                        print( destinationFl)
-                    }
-                }
-             }
+            //let mapEnumCriteria = bikeRoute.finishCriteria.mapEnumCriteria
+            cell.beforeReview.text =  "vorher: \(calcReview(reviewBikeCriteria: bikeRoute.startCriteria))  Punkte"
+        
+            cell.finishReview.text = "dannach: \(calcReview(reviewBikeCriteria: bikeRoute.finishCriteria)) Punkte"
+
+            
+//            var cnt : Int? = mapEnumCriteria.count
+//            if cnt != nil {
+//                for bike in mapEnumCriteria {
+//                    let enumCriteria = bike.key
+//                    let destinationCrit  = mapEnumCriteria[enumCriteria]
+//                    var destinationFl = Int()
+//                    if let tmp = destinationCrit?.rawValue {
+//                        destinationFl = Int(tmp)
+//                        print( destinationFl)
+//                    }
+//                }
+//             }
             
             cell.temperaturLabel.text =  "Temperatur: \(bikeRoute.toDictionary().count)"
             return cell

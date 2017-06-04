@@ -128,7 +128,7 @@ class NewBikeTourViewController: UIViewController {
         }
         let result = allNumbers/count
         label.text = String(result)
-        print( result)
+        //print( result)
         slider.value = Float(result)
     }
     @IBAction func unwind(from segue: UIStoryboardSegue) {
