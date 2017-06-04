@@ -233,7 +233,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="7" translatesAutoresizingMaskIntoConstraints="NO" id="zTi-pT-HU8">
+                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="7" translatesAutoresizingMaskIntoConstraints="NO" id="zTi-pT-HU8" userLabel="Turn Slider">
                                                         <rect key="frame" x="-2" y="20.5" width="223" height="31"/>
                                                         <connections>
                                                             <action selector="turnDriveSliderValueChange:" destination="Y6s-i3-ReC" eventType="valueChanged" id="OE5-ig-6P6"/>
@@ -364,12 +364,18 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="breakSlider" destination="MVb-XC-eXK" id="Ack-yk-xZa"/>
                         <outlet property="breakingLabel" destination="S3k-kX-CiL" id="MIB-6Z-T2e"/>
                         <outlet property="kurveLabel" destination="D6m-Ty-fxC" id="nWq-O2-so0"/>
+                        <outlet property="kurveSlider" destination="lKJ-3r-2B6" id="gFQ-xK-9fA"/>
                         <outlet property="quicklyLabel" destination="YZG-qT-Sq6" id="13T-1i-RnG"/>
+                        <outlet property="quicklySlider" destination="Qro-pb-UQ6" id="kf2-Rd-Yio"/>
                         <outlet property="slowlyLabel" destination="WIN-bL-qwZ" id="rjU-Lc-SyE"/>
+                        <outlet property="slowlySlider" destination="vLX-j1-oRM" id="CfP-YQ-Gl7"/>
+                        <outlet property="startSlider" destination="z1h-bt-eV5" id="I2M-ee-MNQ"/>
                         <outlet property="startingLabel" destination="QQx-cP-3YO" id="3GU-cZ-EIm"/>
-                        <outlet property="turnLabel" destination="PaX-ML-2oe" id="dej-2s-l00"/>
+                        <outlet property="turnLabel" destination="PaX-ML-2oe" id="34i-lJ-muq"/>
+                        <outlet property="turnSlider" destination="zTi-pT-HU8" id="LnZ-Xr-pQA"/>
                         <segue destination="WWZ-ZG-7B7" kind="unwind" identifier="unwindFromReview" unwindAction="unwindFrom:" id="qSV-bz-oMW"/>
                     </connections>
                 </viewController>
@@ -383,7 +389,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JSF-FN-7We" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="WWZ-ZG-7B7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1724" y="-464"/>
+            <point key="canvasLocation" x="1273" y="-465"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bge-9B-4Xs">
@@ -557,6 +563,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ad2-Xl-Zmj"/>
+        <segue reference="Vu1-ss-cgM"/>
     </inferredMetricsTieBreakers>
 </document>

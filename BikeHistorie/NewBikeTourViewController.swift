@@ -38,7 +38,7 @@ class NewBikeTourViewController: UIViewController {
     func datePickerChanged(datePicker:UIDatePicker) {
         
         let strDate = DateFormatter.standard.string(from: datePicker.date)
-        let someString = "11.12.2004"
+//        let someString = "11.12.2004"
 //        if let newDate = DateFormatter.standard.date(from: someString) {
 //            //
 //           let newDt = newDate
@@ -97,20 +97,32 @@ class NewBikeTourViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "startIdent" {
             guard let driveReviewViewController = segue.destination as? DriveReviewViewController else { return }
-            driveReviewViewController.reviewBikeCriteria = startReviewBikeCriteria
+            driveReviewViewController.setParams(reviewBikeCriteria: startReviewBikeCriteria, reviewType: "startIdent")
+          
         }
         if segue.identifier == "finishIdent" {
             guard let driveReviewViewController = segue.destination as? DriveReviewViewController else { return }
-            driveReviewViewController.reviewBikeCriteria = finishReviewBikeCriteria
+            
+            driveReviewViewController.setParams(reviewBikeCriteria: finishReviewBikeCriteria, reviewType: "finishIdent")
+            
         }
     }
     
     @IBAction func unwind(from segue: UIStoryboardSegue) {
         guard let driveReviewViewController = segue.source as? DriveReviewViewController else { return }
-        if segue.identifier == "startIdent" {
+      //  if segue.identifier == "startIdent" {
+        if driveReviewViewController.reviewType == "startIdent" {
             startReviewBikeCriteria = driveReviewViewController.reviewBikeCriteria
+            
+            for r in startReviewBikeCriteria.mapEnumCriteria{
+                 print (r.key.rawValue)
+                print ( String(describing: startReviewBikeCriteria.mapEnumCriteria[r.key]?.rawValue ))
+                
+                
+         }
+            
         }
-        if segue.identifier == "finishIdent" {
+        else {// if segue.identifier == "finishIdent" {
             finishReviewBikeCriteria = driveReviewViewController.reviewBikeCriteria
         }
     }

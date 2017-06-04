@@ -9,17 +9,20 @@
 import UIKit
 
 class DriveReviewViewController: UIViewController {
-    //mapEnumCriteria[.langsam] = .star6
     
-    //var mapDriveCriteria = [EnumCriteria: EnumStar]()
+    
+    var reviewType = String()
     
     var reviewBikeCriteria = ReviewBikeCriteria()
+    
+    
+    @IBOutlet weak var turnLabel: UILabel!
     
     @IBOutlet weak var slowlyLabel: UILabel!
     
     @IBOutlet weak var quicklyLabel: UILabel!
     
-    @IBOutlet weak var turnLabel: UILabel!
+   
     
     @IBOutlet weak var kurveLabel: UILabel!
     
@@ -27,12 +30,73 @@ class DriveReviewViewController: UIViewController {
     
     @IBOutlet weak var breakingLabel: UILabel!
     
+    @IBOutlet weak var slowlySlider: UISlider!
+    
+    @IBOutlet weak var quicklySlider: UISlider!
+    
+
+    @IBOutlet weak var turnSlider: UISlider!
+    
+    @IBOutlet weak var kurveSlider: UISlider!
+    
+    @IBOutlet weak var startSlider: UISlider!
+   
+    @IBOutlet weak var breakSlider: UISlider!
+    
+    func setParams( reviewBikeCriteria: ReviewBikeCriteria, reviewType : String) {
+        self.reviewBikeCriteria = reviewBikeCriteria
+        self.reviewType = reviewType
+    }
+    func updateUiParams(uiSlider: UISlider, uiILabel : UILabel, destination :Int ) {
+        let destinationText = String(describing: destination)
+        let destinationNumber =  destination
+        uiILabel.text = destinationText
+        uiSlider.value = Float(destinationNumber)
+       
+        
+    }
+    func updateParams() {
+        
+        for bike in reviewBikeCriteria.mapEnumCriteria {
+            let enumCriteria = bike.key
+
+            let destinationCrit  = reviewBikeCriteria.mapEnumCriteria[enumCriteria]
+            let destination : Int = destinationCrit!.rawValue
+
+            switch enumCriteria {
+            case EnumCriteria.turn:
+                updateUiParams(uiSlider: turnSlider, uiILabel: turnLabel, destination: destination)
+
+            case EnumCriteria.kurve:
+                  updateUiParams(uiSlider: kurveSlider, uiILabel: kurveLabel,destination: destination)
+                
+            case EnumCriteria.starting:
+                     updateUiParams(uiSlider: startSlider, uiILabel: startingLabel, destination: destination)
+  
+            case EnumCriteria.breaking:
+                    updateUiParams(uiSlider: breakSlider, uiILabel: breakingLabel,  destination: destination)
+          
+            case EnumCriteria.slowly:
+
+                updateUiParams(uiSlider: slowlySlider, uiILabel: slowlyLabel,  destination: destination)
+           
+            case EnumCriteria.quickly:
+                updateUiParams(uiSlider: quicklySlider, uiILabel: quicklyLabel, destination: destination)
+               
+            default: break
+                
+            }
+            
+        }
+        
+    }
+ 
     func driveSliderValueChange(_ sender: UISlider, enumCriteria:EnumCriteria, uiILabel : UILabel!) {
        
         let currentValue = Int(sender.value)
         uiILabel.text = String(currentValue)
         reviewBikeCriteria.mapEnumCriteria [enumCriteria] = EnumStar(rawValue: currentValue)
-      //  mapDriveCriteria   [enumCriteria] = EnumStar(rawValue: currentValue)
+   
     }
     @IBAction func slowlyDriveSliderValueChange(_ sender: UISlider) {
         
@@ -68,12 +132,14 @@ class DriveReviewViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        updateParams()
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        
         performSegue(withIdentifier: "unwindFromReview", sender: self)
     }
 

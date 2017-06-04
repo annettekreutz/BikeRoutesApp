@@ -35,22 +35,32 @@ class BikeRouteTableViewController : UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "BikeRouteCell", for: indexPath) as! BikeRouteTableViewCell
             
             let bikeRoute = bikeRouteStore.getAllBikeRoutes()[indexPath.row]
-           
+            cell.dateLabel.text =   DateFormatter.standard.string(from: bikeRoute.date)
+            cell.durationLabel.text = "Kilometerstand: \(bikeRoute.driveDuration)"
+            cell.distanceLabel.text =  "gefahren: \(bikeRoute.distance)"
+            cell.tourBreakCountLabel.text =  "Pausen: \(bikeRoute.tourBreakCount)"
+            cell.temperaturLabel.text =  "Temperatur: \(bikeRoute.temperatur)"
+            //if var count = bikeRoute.finishCriteria.mapEnumCriteria.count{
+            let mapEnumCriteria = bikeRoute.finishCriteria.mapEnumCriteria
+            var cnt : Int? = mapEnumCriteria.count
+            if cnt != nil {
+                for bike in mapEnumCriteria {
+                    let enumCriteria = bike.key
+                    let destinationCrit  = mapEnumCriteria[enumCriteria]
+                    var destinationFl = Int()
+                    if let tmp = destinationCrit?.rawValue {
+                        destinationFl = Int(tmp)
+                        print( destinationFl)
+                    }
+                }
+             }
             
-           cell.dateLabel.text = DateFormatter.standard.string(from: bikeRoute.date)
-             
-            
-            cell.durationLabel.text = String(bikeRoute.driveDuration)
-            cell.distanceLabel.text =  String(bikeRoute.distance)
-            
-            cell.tourBreakCountLabel.text =  String(bikeRoute.tourBreakCount)
-            cell.temperaturLabel.text =  String(bikeRoute.temperatur)
-            
+            cell.temperaturLabel.text =  "Temperatur: \(bikeRoute.toDictionary().count)"
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "BikeRouteCell2", for: indexPath)
             
-            cell.textLabel?.text = "Kauf mich bitte!"
+            cell.textLabel?.text = "Hier könnte Deine Werbung stehen!"
             
             return cell
         }
