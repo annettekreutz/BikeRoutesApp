@@ -12,6 +12,7 @@ class NewBikeTourViewController: UIViewController {
     @IBOutlet weak var beforeLabel: UILabel!
    
     @IBOutlet weak var finishLabel: UILabel!
+
     @IBOutlet weak var beforeSlider: UISlider!
     
     @IBOutlet weak var finishSlider: UISlider!
@@ -39,8 +40,15 @@ class NewBikeTourViewController: UIViewController {
         super.viewDidLoad()
         datePicker.addTarget(self, action: #selector(datePickerChanged(datePicker:)), for: .valueChanged)
       dateLabel.text = DateFormatter.standard.string(from: datePicker.date)
-        finishLabel.text = "1"
-        beforeLabel.text = "1"
+//        if finishLabel != nil {
+//             finishLabel.text = String("1")
+//        }
+//
+//        if beforeLabel!=nil {
+//            beforeLabel.text = String("1")
+//        }
+       
+        
     }
     
     func datePickerChanged(datePicker:UIDatePicker) {
