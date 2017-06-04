@@ -25,5 +25,6 @@ class ReviewBikeCriteria {
     
     convenience init() {
         self.init(mapEnumCriteria: [:])
+        //mapEnumCriteria[EnumCriteria.breaking]=EnumStar.star1
     }
 }

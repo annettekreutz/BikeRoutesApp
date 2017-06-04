@@ -22,8 +22,6 @@ class DriveReviewViewController: UIViewController {
     
     @IBOutlet weak var quicklyLabel: UILabel!
     
-   
-    
     @IBOutlet weak var kurveLabel: UILabel!
     
     @IBOutlet weak var startingLabel: UILabel!

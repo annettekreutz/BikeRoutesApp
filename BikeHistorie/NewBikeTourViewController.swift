@@ -9,7 +9,14 @@
 import UIKit
 
 class NewBikeTourViewController: UIViewController {
+    @IBOutlet weak var beforeLabel: UILabel!
    
+    @IBOutlet weak var finishLabel: UILabel!
+    @IBOutlet weak var beforeSlider: UISlider!
+    
+    @IBOutlet weak var finishSlider: UISlider!
+    
+    
     @IBOutlet weak var dateTextField: UITextField!
     
     @IBOutlet weak var mileageTextField: UITextField!
@@ -18,21 +25,22 @@ class NewBikeTourViewController: UIViewController {
     
     @IBOutlet weak var tourBreakCountTextField: UITextField!
 
-    
     @IBOutlet weak var temperaturTextField: UITextField!
-    
    
     @IBOutlet weak var dateLabel: UILabel!
+    
     @IBOutlet weak var datePicker: UIDatePicker!
     
     var startReviewBikeCriteria = ReviewBikeCriteria()
+    
     var finishReviewBikeCriteria = ReviewBikeCriteria()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         datePicker.addTarget(self, action: #selector(datePickerChanged(datePicker:)), for: .valueChanged)
-//        datePicker.addTarget(self, action: Selector("dataPickerChanged:"), forControlEvents: .valueChanged)
-        // Do any additional setup after loading the view.
+      dateLabel.text = DateFormatter.standard.string(from: datePicker.date)
+        finishLabel.text = "1"
+        beforeLabel.text = "1"
     }
     
     func datePickerChanged(datePicker:UIDatePicker) {
@@ -78,7 +86,8 @@ class NewBikeTourViewController: UIViewController {
      //   guard let date = Date(dateTextField.text ?? "") else /
         //{ return }
         guard let temperatur = Double(temperaturTextField.text ?? "") else { return }
-        
+        if  startReviewBikeCriteria.mapEnumCriteria.count < 6  { return }
+        if   finishReviewBikeCriteria.mapEnumCriteria.count < 6  { return }
         let bikeRoute = BikeRoute(driveDuration: driveDuration, distance: distance, tourBreakCount: tourBreakCount, date: datePicker.date, temperatur: temperatur, startCriteria: startReviewBikeCriteria, finishCriteria: finishReviewBikeCriteria)
         
         let br = BikeRouteStore()
@@ -107,23 +116,31 @@ class NewBikeTourViewController: UIViewController {
             
         }
     }
-    
+    func calcReview (reviewBikeCriteria :ReviewBikeCriteria, slider: UISlider, label: UILabel){
+        var allNumbers = Int()
+        let count = reviewBikeCriteria.mapEnumCriteria.count
+        for bike in reviewBikeCriteria.mapEnumCriteria{
+            let enumCriteria = bike.key
+            let destinationCrit  = reviewBikeCriteria.mapEnumCriteria[enumCriteria]
+            let number : Int = destinationCrit!.rawValue
+            allNumbers += number
+            print (allNumbers, number)
+        }
+        let result = allNumbers/count
+        label.text = String(result)
+        print( result)
+        slider.value = Float(result)
+    }
     @IBAction func unwind(from segue: UIStoryboardSegue) {
         guard let driveReviewViewController = segue.source as? DriveReviewViewController else { return }
       //  if segue.identifier == "startIdent" {
         if driveReviewViewController.reviewType == "startIdent" {
             startReviewBikeCriteria = driveReviewViewController.reviewBikeCriteria
-            
-            for r in startReviewBikeCriteria.mapEnumCriteria{
-                 print (r.key.rawValue)
-                print ( String(describing: startReviewBikeCriteria.mapEnumCriteria[r.key]?.rawValue ))
-                
-                
-         }
-            
+            calcReview(reviewBikeCriteria : startReviewBikeCriteria,slider: beforeSlider, label: beforeLabel)
         }
         else {// if segue.identifier == "finishIdent" {
             finishReviewBikeCriteria = driveReviewViewController.reviewBikeCriteria
+             calcReview(reviewBikeCriteria : finishReviewBikeCriteria,slider: finishSlider,label: finishLabel)
         }
     }
 }

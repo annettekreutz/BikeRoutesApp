@@ -31,7 +31,10 @@ extension ReviewBikeCriteria {
 extension BikeRoute {
     
     func toDictionary() -> [String: Any] {
-        return ["driveDuration": driveDuration, "distance": distance, "tourBreakCount": tourBreakCount, "date": date, "temperatur": temperatur]
+        return ["driveDuration": driveDuration, "distance": distance, "tourBreakCount": tourBreakCount, "date": date, "temperatur": temperatur,
+            "startCriteria": startCriteria.toDictionary(),
+            "finishCriteria": finishCriteria.toDictionary()
+        ]
     }
     
     init(dicionary: [String: Any]) {

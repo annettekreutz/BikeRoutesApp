@@ -21,4 +21,5 @@ enum EnumStar: Int {
     case star5
     case star6
     case star7
+    
 }
