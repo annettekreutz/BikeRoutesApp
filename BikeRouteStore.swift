@@ -80,8 +80,29 @@ class BikeRouteStore: BikeRouteStoreing {
         for bikeRouteKeyValue in getSerializedData() {
             result.append(BikeRoute(dicionary: bikeRouteKeyValue))
         }
-        
         return result
+    }
+    func getAllBikeRoutesWithout(indexOfList : Int) -> [BikeRoute] {
+        var result = [BikeRoute]()
+        var index = Int(0)
+        for bikeRouteKeyValue in getSerializedData() {
+            if( indexOfList != index) {
+                result.append(BikeRoute(dicionary: bikeRouteKeyValue))
+            }
+            index = index+1
+        }
+        return result
+    }
+ 
+    func remove(indexOfList : Int){
+        let bikeList =  getAllBikeRoutesWithout(indexOfList: indexOfList)
+        userDefaults.removeObject(forKey: userDefaultsKey)
+        for bike  in bikeList {
+            store(bikeRoute: bike)
+        }
+    }
+    func insert(bikeRoute : BikeRoute){
+        store(bikeRoute: bikeRoute)
     }
 }
 

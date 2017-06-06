@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		67220BEF1EE6F490009D1BA2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67220BEE1EE6F490009D1BA2 /* MapKit.framework */; };
 		6725F11C1EDD510E00D43EED /* NewBikeTourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725F11B1EDD510E00D43EED /* NewBikeTourViewController.swift */; };
 		6725F11E1EDD639D00D43EED /* BikeRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725F11D1EDD639D00D43EED /* BikeRoute.swift */; };
 		6725F1201EDD9BD500D43EED /* BikeRouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6725F11F1EDD9BD500D43EED /* BikeRouteStore.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		67220BEE1EE6F490009D1BA2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6725F11B1EDD510E00D43EED /* NewBikeTourViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBikeTourViewController.swift; sourceTree = "<group>"; };
 		6725F11D1EDD639D00D43EED /* BikeRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BikeRoute.swift; sourceTree = "<group>"; };
 		6725F11F1EDD9BD500D43EED /* BikeRouteStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BikeRouteStore.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67220BEF1EE6F490009D1BA2 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +77,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		67220BED1EE6F490009D1BA2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				67220BEE1EE6F490009D1BA2 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6725F11A1EDD507100D43EED /* docu */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +107,7 @@
 				67D3E47D1ED87ADF000EA75B /* BikeHistorie */,
 				67D3E4921ED87ADF000EA75B /* BikeHistorieTests */,
 				67D3E47C1ED87ADF000EA75B /* Products */,
+				67220BED1EE6F490009D1BA2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

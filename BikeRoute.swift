@@ -9,7 +9,7 @@
 import Foundation
 
 struct BikeRoute {
-
+ 
     let driveDuration: TimeInterval
     let distance: Double
     let tourBreakCount: Int
@@ -19,4 +19,5 @@ struct BikeRoute {
     var startCriteria = ReviewBikeCriteria()
     var finishCriteria = ReviewBikeCriteria()
 
+    
 }

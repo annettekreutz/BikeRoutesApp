@@ -30,16 +30,16 @@
         <scene sceneID="gJ5-h6-vnL">
             <objects>
                 <tableViewController title="Touren" id="I07-p0-TgO" customClass="BikeRouteTableViewController" customModule="BikeHistorie" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="105" sectionHeaderHeight="18" sectionFooterHeight="18" id="IfR-LO-zoj">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="105" sectionHeaderHeight="18" sectionFooterHeight="18" id="IfR-LO-zoj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BikeRouteCell" rowHeight="96" id="Yh2-WZ-iHe" customClass="BikeRouteTableViewCell" customModule="BikeHistorie" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BikeRouteCell" editingAccessoryType="checkmark" rowHeight="96" id="Yh2-WZ-iHe" customClass="BikeRouteTableViewCell" customModule="BikeHistorie" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="56" width="375" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yh2-WZ-iHe" id="ba2-F0-6ba">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="95.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="LabelDate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGl-5G-CUq">
@@ -85,7 +85,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="FinishReview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GWg-WO-krR">
-                                            <rect key="frame" x="170" y="73" width="184" height="21"/>
+                                            <rect key="frame" x="183" y="74" width="184" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -102,6 +102,7 @@
                                     <outlet property="finishReview" destination="GWg-WO-krR" id="n9C-Bo-Cmy"/>
                                     <outlet property="temperaturLabel" destination="Ab8-Md-aHe" id="0dT-qb-aoz"/>
                                     <outlet property="tourBreakCountLabel" destination="tnf-Sn-umN" id="bWL-aZ-N0C"/>
+                                    <segue destination="FRD-8p-466" kind="show" identifier="editSeque" id="KrJ-mf-L0W"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BikeRouteCell2" textLabel="K8u-mO-XIZ" rowHeight="64" style="IBUITableViewCellStyleDefault" id="qyH-fq-PG0">
@@ -128,7 +129,12 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Title" id="cwd-g6-5ds">
+                    <navigationItem key="navigationItem" title="Bike Routes" id="cwd-g6-5ds">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="802-X2-9iY">
+                            <connections>
+                                <action selector="editEntry:" destination="I07-p0-TgO" id="bOR-IL-e1N"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="cL8-PU-jqE">
                             <connections>
                                 <segue destination="FRD-8p-466" kind="presentation" id="vFh-lb-bQN"/>
@@ -139,7 +145,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0pr-KK-GM6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1303.2" y="-7.6461769115442282"/>
+            <point key="canvasLocation" x="-1212" y="6"/>
         </scene>
         <!--Drive Review View Controller-->
         <scene sceneID="ejO-9L-3vY">
@@ -421,7 +427,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dod-05-kYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-452" y="-449"/>
+            <point key="canvasLocation" x="-366" y="-18"/>
         </scene>
         <!--New Bike Tour View Controller-->
         <scene sceneID="Uk4-17-qfG">
@@ -554,8 +560,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="P9S-oN-Ddc">
+                                <rect key="frame" x="0.0" y="503" width="375" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="GSj-pk-IDx"/>
+                                </constraints>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="P9S-oN-Ddc" secondAttribute="trailing" constant="-16" id="pgT-s0-CPG"/>
+                            <constraint firstItem="Rii-wv-9fn" firstAttribute="top" secondItem="P9S-oN-Ddc" secondAttribute="bottom" id="rxP-tT-U0E"/>
+                            <constraint firstItem="P9S-oN-Ddc" firstAttribute="leading" secondItem="zE5-G9-syG" secondAttribute="leadingMargin" constant="-16" id="vOn-Mz-wSw"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="a7s-Uz-9gE">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="UeR-mr-fJW">
@@ -588,6 +605,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="KrJ-mf-L0W"/>
         <segue reference="Vu1-ss-cgM"/>
     </inferredMetricsTieBreakers>
 </document>

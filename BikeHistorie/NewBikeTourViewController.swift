@@ -5,6 +5,7 @@
 //  Created by Team_iOS on 30.05.17.
 //  Copyright © 2017 Team_iOS. All rights reserved.
 //
+// later: https://www.raywenderlich.com/90971/introduction-mapkit-swift-tutorial
 
 import UIKit
 
@@ -16,9 +17,6 @@ class NewBikeTourViewController: UIViewController {
     @IBOutlet weak var beforeSlider: UISlider!
     
     @IBOutlet weak var finishSlider: UISlider!
-    
-    
-    @IBOutlet weak var dateTextField: UITextField!
     
     @IBOutlet weak var mileageTextField: UITextField!
     
@@ -36,19 +34,15 @@ class NewBikeTourViewController: UIViewController {
     
     var finishReviewBikeCriteria = ReviewBikeCriteria()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        datePicker.addTarget(self, action: #selector(datePickerChanged(datePicker:)), for: .valueChanged)
-      dateLabel.text = DateFormatter.standard.string(from: datePicker.date)
-//        if finishLabel != nil {
-//             finishLabel.text = String("1")
-//        }
-//
-//        if beforeLabel!=nil {
-//            beforeLabel.text = String("1")
-//        }
-       
-        
+        if(isEditing){
+            print ("Modus Eding")
+        }
+        datePicker.addTarget(self, action: #selector(datePickerChanged(datePicker:)), for: . valueChanged)
+        dateLabel.text = DateFormatter.standard.string(from: datePicker.date)
+
     }
     
     func datePickerChanged(datePicker:UIDatePicker) {
@@ -77,8 +71,7 @@ class NewBikeTourViewController: UIViewController {
     }
     */
 
-    @IBAction func cancelButton(_ sender: UIBarButtonItem) {
-       // navigationController?.presentingViewController?.dismiss(animated: true)
+    @IBAction func cancelButton(_ sender: UIBarButtonItem){
         back()
     }
     func back() {
@@ -91,8 +84,6 @@ class NewBikeTourViewController: UIViewController {
         guard let distance = Double(distanceTextField.text ?? "") else { return }
         guard let tourBreakCount = Int(tourBreakCountTextField.text ?? "") else { return }
         
-     //   guard let date = Date(dateTextField.text ?? "") else /
-        //{ return }
         guard let temperatur = Double(temperaturTextField.text ?? "") else { return }
         if  startReviewBikeCriteria.mapEnumCriteria.count < 6  { return }
         if   finishReviewBikeCriteria.mapEnumCriteria.count < 6  { return }
@@ -100,13 +91,9 @@ class NewBikeTourViewController: UIViewController {
         
         let br = BikeRouteStore()
         br.store(bikeRoute: bikeRoute)
-        
-        
-        print(bikeRoute)
+      //  print(bikeRoute)
         back()
     }
-    // set criteria in driveReviewViewController
-    
     @IBAction func goBack(_ sender: Any?) {
         performSegue(withIdentifier: "unwindFromReview", sender: self)
     }
