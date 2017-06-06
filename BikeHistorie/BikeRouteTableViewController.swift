@@ -105,18 +105,18 @@ class BikeRouteTableViewController : UITableViewController{
          insertAction.backgroundColor = UIColor.blue
         
         // action one
-        let editAction = UITableViewRowAction(style: .default, title: "Edit", handler: { (action, indexPath) in
-            print("Edit tapped")
-            
-            let bikeRoute = self.bikeRouteStore.getAllBikeRoutes()[indexPath.row]
-         //   driveReviewViewController DriveReviewViewController
-            // TODO save state of edit
-            // load 
-            
-           // self.bikeRouteStore.insert(bikeRoute: bikeRoute)
-            tableView.reloadData()
-        })
-        editAction.backgroundColor = UIColor.yellow
+//        let editAction = UITableViewRowAction(style: .default, title: "Edit", handler: { (action, indexPath) in
+//            print("Edit tapped")
+//            
+//            let bikeRoute = self.bikeRouteStore.getAllBikeRoutes()[indexPath.row]
+//         //   driveReviewViewController DriveReviewViewController
+//            // TODO save state of edit
+//            // load 
+//            
+//           // self.bikeRouteStore.insert(bikeRoute: bikeRoute)
+//            tableView.reloadData()
+//        })
+//        editAction.backgroundColor = UIColor.yellow
 
         
          // action two
@@ -133,7 +133,7 @@ class BikeRouteTableViewController : UITableViewController{
                     })
         deleteAction.backgroundColor = UIColor.red
         
-        return [insertAction,editAction, deleteAction]
+        return [insertAction, deleteAction]
     }
     @IBAction func editEntry(_ sender: Any) {
         print ("editEntry() ")
@@ -145,5 +145,28 @@ class BikeRouteTableViewController : UITableViewController{
     override var prefersStatusBarHidden: Bool{
         return true
     }
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editBikeTour" {
+            guard let editBikeTourViewController = segue.destination as? NewBikeTourViewController else { return }
+            let indexPath = tableView.indexPathForSelectedRow?.row
+           // see http://www.codingexplorer.com/segue-uitableviewcell-taps-swift/))
+            //let bikeRoute = self.bikeRouteStore.getAllBikeRoutes()[indexPath.row]
+            
+           // TODO  editBikeTourViewController.setAttributes(bikeRoute,"editBikeTour")//
+//            
+        }
+        
+    }
+    
+    @IBAction func unwind(from segue: UIStoryboardSegue) {
+        guard let bikeTourViewController = segue.source as? NewBikeTourViewController else { return }
+        if segue.identifier == "editBikeTour" {
+       // if driveReviewViewController.reviewType == "editBikeTour" {
+           // bikeTourViewController = bikeTourViewController.reviewBikeCriteria
+      
+            
+//            calcReview(reviewBikeCriteria : startReviewBikeCriteria,slider: beforeSlider, label: beforeLabel)
+        }
+        
+    }
 }

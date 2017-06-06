@@ -133,9 +133,12 @@ class NewBikeTourViewController: UIViewController {
             startReviewBikeCriteria = driveReviewViewController.reviewBikeCriteria
             calcReview(reviewBikeCriteria : startReviewBikeCriteria,slider: beforeSlider, label: beforeLabel)
         }
-        else {// if segue.identifier == "finishIdent" {
+         if segue.identifier == "finishIdent" {
             finishReviewBikeCriteria = driveReviewViewController.reviewBikeCriteria
              calcReview(reviewBikeCriteria : finishReviewBikeCriteria,slider: finishSlider,label: finishLabel)
+        } else {// editBikeTour
+            // do nothing
         }
+        
     }
 }

@@ -39,7 +39,7 @@
                                 <rect key="frame" x="0.0" y="56" width="375" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yh2-WZ-iHe" id="ba2-F0-6ba">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="95.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="95"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="LabelDate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGl-5G-CUq">
@@ -102,7 +102,7 @@
                                     <outlet property="finishReview" destination="GWg-WO-krR" id="n9C-Bo-Cmy"/>
                                     <outlet property="temperaturLabel" destination="Ab8-Md-aHe" id="0dT-qb-aoz"/>
                                     <outlet property="tourBreakCountLabel" destination="tnf-Sn-umN" id="bWL-aZ-N0C"/>
-                                    <segue destination="FRD-8p-466" kind="show" identifier="editSeque" id="KrJ-mf-L0W"/>
+                                    <segue destination="FRD-8p-466" kind="show" identifier="editBikeTour" id="KrJ-mf-L0W"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BikeRouteCell2" textLabel="K8u-mO-XIZ" rowHeight="64" style="IBUITableViewCellStyleDefault" id="qyH-fq-PG0">
