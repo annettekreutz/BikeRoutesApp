@@ -147,13 +147,17 @@ class BikeRouteTableViewController : UITableViewController{
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editBikeTour" {
-            guard let editBikeTourViewController = segue.destination as? NewBikeTourViewController else { return }
+            guard let editBikeTourNavigationController = segue.destination as? UINavigationController else {
+                return
+            }
+            guard let editBikeTourViewController = editBikeTourNavigationController.viewControllers.first as? NewBikeTourViewController else {
+                return
+            }
             let indexPath = tableView.indexPathForSelectedRow?.row
+            let bikerRoute = bikeRouteStore.getAllBikeRoutes()[indexPath!]
+            editBikeTourViewController.setAttributes(bikeRoute: bikerRoute, tableIndex: indexPath!)
            // see http://www.codingexplorer.com/segue-uitableviewcell-taps-swift/))
-            //let bikeRoute = self.bikeRouteStore.getAllBikeRoutes()[indexPath.row]
             
-           // TODO  editBikeTourViewController.setAttributes(bikeRoute,"editBikeTour")//
-//            
         }
         
     }
@@ -163,9 +167,6 @@ class BikeRouteTableViewController : UITableViewController{
         if segue.identifier == "editBikeTour" {
        // if driveReviewViewController.reviewType == "editBikeTour" {
            // bikeTourViewController = bikeTourViewController.reviewBikeCriteria
-      
-            
-//            calcReview(reviewBikeCriteria : startReviewBikeCriteria,slider: beforeSlider, label: beforeLabel)
         }
         
     }

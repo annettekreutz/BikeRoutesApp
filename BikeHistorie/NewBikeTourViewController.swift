@@ -34,6 +34,9 @@ class NewBikeTourViewController: UIViewController {
     
     var finishReviewBikeCriteria = ReviewBikeCriteria()
     
+    var tableIndex = Int()
+    
+    var bikeRoute: BikeRoute?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +46,27 @@ class NewBikeTourViewController: UIViewController {
         datePicker.addTarget(self, action: #selector(datePickerChanged(datePicker:)), for: . valueChanged)
         dateLabel.text = DateFormatter.standard.string(from: datePicker.date)
 
+        if let bikeRoute = self.bikeRoute {
+            mileageTextField.text = String( "\(bikeRoute.driveDuration)")
+            temperaturTextField.text = String( "\(bikeRoute.temperatur)")
+            distanceTextField.text = String( "\(bikeRoute.distance)")
+            
+            // DateFormatter.standard.string(from: bikeRoute.date)
+            
+            dateLabel.text = DateFormatter.standard.string(from: bikeRoute.date)
+            datePicker.date =   bikeRoute.date
+            tourBreakCountTextField.text = String( "\(bikeRoute.tourBreakCount)")
+            
+            startReviewBikeCriteria.mapEnumCriteria = bikeRoute.startCriteria.mapEnumCriteria
+            finishReviewBikeCriteria.mapEnumCriteria = bikeRoute.finishCriteria.mapEnumCriteria
+        }
+
+    }
+    
+    func setAttributes(bikeRoute : BikeRoute, tableIndex : Int){
+ 
+        self.tableIndex = tableIndex
+        self.bikeRoute = bikeRoute
     }
     
     func datePickerChanged(datePicker:UIDatePicker) {
@@ -90,6 +114,7 @@ class NewBikeTourViewController: UIViewController {
         let bikeRoute = BikeRoute(driveDuration: driveDuration, distance: distance, tourBreakCount: tourBreakCount, date: datePicker.date, temperatur: temperatur, startCriteria: startReviewBikeCriteria, finishCriteria: finishReviewBikeCriteria)
         
         let br = BikeRouteStore()
+        // TODO recherch tableIndex and save an edited object
         br.store(bikeRoute: bikeRoute)
       //  print(bikeRoute)
         back()
@@ -110,6 +135,7 @@ class NewBikeTourViewController: UIViewController {
             driveReviewViewController.setParams(reviewBikeCriteria: finishReviewBikeCriteria, reviewType: "finishIdent")
             
         }
+     
     }
     func calcReview (reviewBikeCriteria :ReviewBikeCriteria, slider: UISlider, label: UILabel){
         var allNumbers = Int()
