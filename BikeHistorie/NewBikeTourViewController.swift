@@ -103,19 +103,41 @@ class NewBikeTourViewController: UIViewController {
         
     }
     
+    func alert(message: String, messageType : String, returnType : String , uITextField : UITextField) {
+    //    uITextField.borderStyle.rawValue = UITextBorderStyleNone
+        let alertView = UIAlertController(title: messageType, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: returnType, style: .default, handler: nil)
+        alertView.addAction(action)
+        self.present(alertView, animated: true, completion: nil)
+    }
     @IBAction func save(_ sender: Any) {
-        guard let driveDuration = TimeInterval(mileageTextField.text ?? "") else { return }
-        guard let distance = Double(distanceTextField.text ?? "") else { return }
-        guard let tourBreakCount = Int(tourBreakCountTextField.text ?? "") else { return }
+       //   mileageTextField.borderStyle.rawValue = UITextBorderStyleNone
+        guard let driveDuration = TimeInterval(mileageTextField.text ?? "") else {
+            alert(message: "Kilometerstand fehlt!", messageType: "Warnung", returnType: "Ok", uITextField: mileageTextField)
+            return }
+        guard let distance = Double(distanceTextField.text ?? "") else {
+            alert(message: "gefahrene Kilomenter fehlen!", messageType: "Warnung", returnType: "Ok",uITextField: distanceTextField)
+            return }
+        guard let tourBreakCount = Int(tourBreakCountTextField.text ?? "") else {
+            alert(message: "Anzahl Pausen fehlen!", messageType: "Warnung", returnType: "Ok",uITextField: distanceTextField)
+            return }
         
         guard let temperatur = Double(temperaturTextField.text ?? "") else { return }
-        if  startReviewBikeCriteria.mapEnumCriteria.count < 6  { return }
-        if   finishReviewBikeCriteria.mapEnumCriteria.count < 6  { return }
+        if  startReviewBikeCriteria.mapEnumCriteria.count < 6  {
+            alert(message:  "Erste Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",uITextField: distanceTextField)
+            return }
+        if   finishReviewBikeCriteria.mapEnumCriteria.count < 6  {
+            alert(message: "Zweite Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",uITextField: distanceTextField)
+            return }
         let bikeRoute = BikeRoute(driveDuration: driveDuration, distance: distance, tourBreakCount: tourBreakCount, date: datePicker.date, temperatur: temperatur, startCriteria: startReviewBikeCriteria, finishCriteria: finishReviewBikeCriteria)
         
         let br = BikeRouteStore()
+        if(tableIndex == nil){
         // TODO recherch tableIndex and save an edited object
-        br.store(bikeRoute: bikeRoute)
+            br.store(bikeRoute: bikeRoute)
+        } else {
+            br.store(bikeRoute: bikeRoute)
+        }
       //  print(bikeRoute)
         back()
     }
@@ -133,6 +155,13 @@ class NewBikeTourViewController: UIViewController {
             guard let driveReviewViewController = segue.destination as? DriveReviewViewController else { return }
             
             driveReviewViewController.setParams(reviewBikeCriteria: finishReviewBikeCriteria, reviewType: "finishIdent")
+            
+        }
+        if segue.identifier == "mapIdent" {
+            guard let driveMapViewController = segue.destination as? DriveMapViewController else { return }
+          //  driveMapViewController.testLabel.text = "test"
+          //  driveMapViewController.setParam( )
+//            driveMapViewController.setParams(reviewBikeCriteria: finishReviewBikeCriteria, reviewType: "finishIdent")
             
         }
      

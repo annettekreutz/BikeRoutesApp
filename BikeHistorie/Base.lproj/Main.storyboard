@@ -429,6 +429,57 @@
             </objects>
             <point key="canvasLocation" x="-270" y="-58"/>
         </scene>
+        <!--Title-->
+        <scene sceneID="Vhi-7i-dok">
+            <objects>
+                <viewController id="8Nf-Pk-hTX" customClass="DriveMapViewController" customModule="BikeHistorie" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EEz-ph-edi"/>
+                        <viewControllerLayoutGuide type="bottom" id="VFH-0K-4r9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ol5-13-Ino" userLabel="Ich">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="UXr-N0-a1n">
+                                <rect key="frame" x="16" y="110" width="343" height="513"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDy-Ak-mxi">
+                                <rect key="frame" x="21" y="84" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="UXr-N0-a1n" firstAttribute="leading" secondItem="ol5-13-Ino" secondAttribute="leadingMargin" id="Gv1-3S-rkG"/>
+                            <constraint firstItem="UXr-N0-a1n" firstAttribute="top" secondItem="eDy-Ak-mxi" secondAttribute="bottom" constant="5" id="IJ7-mE-PjI"/>
+                            <constraint firstItem="VFH-0K-4r9" firstAttribute="top" secondItem="UXr-N0-a1n" secondAttribute="bottom" id="OdC-Md-fIQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UXr-N0-a1n" secondAttribute="trailing" id="UNv-9r-4t6"/>
+                            <constraint firstItem="eDy-Ak-mxi" firstAttribute="top" secondItem="EEz-ph-edi" secondAttribute="bottom" constant="20" id="asb-0w-oaY"/>
+                            <constraint firstItem="eDy-Ak-mxi" firstAttribute="leading" secondItem="ol5-13-Ino" secondAttribute="leadingMargin" constant="5" id="yyK-X8-QDC"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="HnY-4s-Krg">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="bfx-7J-qrC">
+                            <connections>
+                                <action selector="showSearchBar:" destination="8Nf-Pk-hTX" id="V7C-ga-QOx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="mapView" destination="UXr-N0-a1n" id="WEG-gO-rWd"/>
+                        <outlet property="testLabel" destination="eDy-Ak-mxi" id="q3f-QD-hD7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1P1-WJ-yxS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="380" y="-1121"/>
+        </scene>
         <!--New Bike Tour View Controller-->
         <scene sceneID="Uk4-17-qfG">
             <objects>
@@ -502,7 +553,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MUW-h2-uM7">
-                                <rect key="frame" x="45" y="381" width="123" height="30"/>
+                                <rect key="frame" x="16" y="393" width="123" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="vorher"/>
                                 <connections>
@@ -510,7 +561,7 @@
                                 </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="7" translatesAutoresizingMaskIntoConstraints="NO" id="Vcv-mI-2bU">
-                                <rect key="frame" x="181" y="381" width="152" height="31"/>
+                                <rect key="frame" x="163" y="388" width="152" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <bool key="isElement" value="NO"/>
@@ -532,21 +583,21 @@
                                 <locale key="locale" localeIdentifier="de"/>
                             </datePicker>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LLS-m4-Qn4">
-                                <rect key="frame" x="236" y="352" width="42" height="59"/>
+                                <rect key="frame" x="236" y="359" width="42" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="7" translatesAutoresizingMaskIntoConstraints="NO" id="rCd-Ih-mdp">
-                                <rect key="frame" x="181" y="434" width="152" height="31"/>
+                                <rect key="frame" x="162" y="426" width="152" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <bool key="isElement" value="NO"/>
                                 </accessibility>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vrC-I1-fRM">
-                                <rect key="frame" x="41" y="434" width="116" height="30"/>
+                                <rect key="frame" x="23" y="426" width="116" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="dananch"/>
                                 <connections>
@@ -554,25 +605,22 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nds-A0-99m">
-                                <rect key="frame" x="236" y="419" width="42" height="21"/>
+                                <rect key="frame" x="236" y="414" width="42" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="P9S-oN-Ddc">
-                                <rect key="frame" x="0.0" y="503" width="375" height="120"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="GSj-pk-IDx"/>
-                                </constraints>
-                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3zc-vk-wrq">
+                                <rect key="frame" x="58" y="347" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Karte"/>
+                                <connections>
+                                    <segue destination="8Nf-Pk-hTX" kind="show" id="yvz-iC-ny9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="P9S-oN-Ddc" secondAttribute="trailing" constant="-16" id="pgT-s0-CPG"/>
-                            <constraint firstItem="Rii-wv-9fn" firstAttribute="top" secondItem="P9S-oN-Ddc" secondAttribute="bottom" id="rxP-tT-U0E"/>
-                            <constraint firstItem="P9S-oN-Ddc" firstAttribute="leading" secondItem="zE5-G9-syG" secondAttribute="leadingMargin" constant="-16" id="vOn-Mz-wSw"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="a7s-Uz-9gE">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="UeR-mr-fJW">
@@ -601,7 +649,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wku-YM-XGF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="324" y="-449.32533733133437"/>
+            <point key="canvasLocation" x="544.79999999999995" y="-460.11994002998506"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

@@ -57,7 +57,15 @@ protocol BikeRouteStoreing {
 class BikeRouteStore: BikeRouteStoreing {
     private let userDefaultsKey = "BikeRouteStore"
     private let userDefaults = UserDefaults.standard
-    
+    func store(bikeRoute: BikeRoute, tabIndex : Int) {
+        var bikeList =  getAllBikeRoutesWithout(indexOfList: 999)
+        bikeList[tabIndex] = bikeRoute
+        userDefaults.removeObject(forKey: userDefaultsKey)
+        for bike  in bikeList {
+            store(bikeRoute: bike)
+        }
+
+             }
     func store(bikeRoute: BikeRoute) {
         var array = getSerializedData()
         //Add new Data
