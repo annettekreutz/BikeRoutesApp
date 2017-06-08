@@ -93,7 +93,7 @@ class NewBikeTourViewController: UIViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: …®Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
@@ -106,46 +106,65 @@ class NewBikeTourViewController: UIViewController {
         navigationController?.presentingViewController?.dismiss(animated: true)
         
     }
-    
-    func alert(message: String, messageType : String, returnType : String , uITextField : UITextField) {
-    //    uITextField.borderStyle.rawValue = UITextBorderStyleNone
+    func alert(message: String, messageType : String, returnType : String) {
+        
         let alertView = UIAlertController(title: messageType, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: returnType, style: .default, handler: nil)
         alertView.addAction(action)
         self.present(alertView, animated: true, completion: nil)
     }
+    
+    func alert(message: String, messageType : String, returnType : String , textField : UITextField) {
+    
+        alert(message: message, messageType: messageType, returnType: returnType)
+        textField.borderColor = UIColor.red
+        textField.backgroundColor = .red
+    }
+    func alert(message: String, messageType : String, returnType : String , textSlider : UISlider) {
+        
+        alert(message: message, messageType: messageType, returnType: returnType)
+      //  textLabel.borderColor = UIColor.red
+        textSlider.backgroundColor = .red
+    }
+    func resetTextFields() {
+         locationTextField.backgroundColor = UIColor.white
+         mileageTextField.backgroundColor = UIColor.white
+         distanceTextField.backgroundColor = UIColor.white
+         tourBreakCountTextField.backgroundColor = UIColor.white
+         temperaturTextField.backgroundColor = UIColor.white
+         beforeLabel.backgroundColor = UIColor.white
+         finishLabel.backgroundColor = UIColor.white
+    }
+    
     @IBAction func save(_ sender: Any) {
-       //   mileageTextField.borderStyle.rawValue = UITextBorderStyleNone
+        resetTextFields()
         guard let location = String(locationTextField.text ?? "") else {
-            alert(message: "Zielort fehlt!", messageType: "Warnung", returnType: "Ok",uITextField: locationTextField)
+            alert(message: "Zielort fehlt!", messageType: "Warnung", returnType: "Ok",textField: locationTextField)
             return }
         if location.isEmpty {
-            alert(message: "Zielort fehlt!", messageType: "Warnung", returnType: "Ok",uITextField: locationTextField)
+            alert(message: "Zielort fehlt!", messageType: "Warnung", returnType: "Ok",textField: locationTextField)
             return
         }
-   
         guard let driveDuration = TimeInterval(mileageTextField.text ?? "") else {
-            alert(message: "Kilometerstand fehlt!", messageType: "Warnung", returnType: "Ok", uITextField: mileageTextField)
+            alert(message: "Kilometerstand fehlt!", messageType: "Warnung", returnType: "Ok", textField: mileageTextField)
             return }
-  
-        
         guard let distance = Double(distanceTextField.text ?? "") else {
-            alert(message: "gefahrene Kilomenter fehlen!", messageType: "Warnung", returnType: "Ok",uITextField: distanceTextField)
+            alert(message: "gefahrene Kilomenter fehlen!", messageType: "Warnung", returnType: "Ok",textField: distanceTextField)
             return }
         guard let tourBreakCount = Int(tourBreakCountTextField.text ?? "") else {
-            alert(message: "Anzahl Pausen fehlen!", messageType: "Warnung", returnType: "Ok",uITextField: tourBreakCountTextField)
+            alert(message: "Anzahl Pausen fehlen!", messageType: "Warnung", returnType: "Ok",textField: tourBreakCountTextField)
             return }
         
         guard let temperatur = Double(temperaturTextField.text ?? "") else {
-            alert(message: "Temperatur fehlt!", messageType: "Warnung", returnType: "Ok",uITextField: temperaturTextField)
+            alert(message: "Temperatur fehlt!", messageType: "Warnung", returnType: "Ok",textField: temperaturTextField)
             return
         }
         
         if  startReviewBikeCriteria.mapEnumCriteria.count < 6  {
-            alert(message:  "Erste Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",uITextField: distanceTextField)
+            alert(message:  "Erste Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",textSlider: beforeSlider)
             return }
         if   finishReviewBikeCriteria.mapEnumCriteria.count < 6  {
-            alert(message: "Zweite Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",uITextField: distanceTextField)
+            alert(message: "Zweite Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",textSlider: finishSlider)
             return }
         
         let bikeRoute = BikeRoute(driveDuration: driveDuration,location:location, distance: distance, tourBreakCount: tourBreakCount, date: datePicker.date, temperatur: temperatur, startCriteria: startReviewBikeCriteria, finishCriteria: finishReviewBikeCriteria)

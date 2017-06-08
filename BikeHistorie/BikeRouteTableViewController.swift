@@ -54,7 +54,7 @@ class BikeRouteTableViewController : UITableViewController{
                 let km =  bikeRoute.distance
                 countKm = countKm + km
             }
-            cell.textLabel?.text = "Anzahl Fahrten: \(countDrive) und Kilometer \(countKm) "
+            cell.textLabel?.text = "Anzahl Fahrten: \(countDrive), \(countKm) km"
             return cell
         }
     }
@@ -129,9 +129,7 @@ class BikeRouteTableViewController : UITableViewController{
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
-    override var prefersStatusBarHidden: Bool{
-        return true
-    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editBikeTour" {
             guard let editBikeTourNavigationController = segue.destination as? UINavigationController, let editBikeTourViewController = editBikeTourNavigationController.viewControllers.first as? NewBikeTourViewController else {
