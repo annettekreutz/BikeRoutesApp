@@ -188,19 +188,7 @@ class NewBikeTourViewController: UIViewController {
     }
    
     func setAndCalcReview (reviewBikeCriteria : ReviewBikeCriteria, slider: UISlider, label: UILabel){
-        
-        var allNumbers = Int()
-        let count = reviewBikeCriteria.mapEnumCriteria.count
-        for bike in reviewBikeCriteria.mapEnumCriteria{
-            let enumCriteria = bike.key
-            let destinationCrit  = reviewBikeCriteria.mapEnumCriteria[enumCriteria]
-            let number : Int = destinationCrit!.rawValue
-            allNumbers += number
-            print (allNumbers, number)
-        }
-        let result = allNumbers/count
-        
-        
+        let result = CalcCriteria.calcAverage(reviewBikeCriteria: reviewBikeCriteria)
         label.text = String(result)
         slider.value = Float(result)
     }

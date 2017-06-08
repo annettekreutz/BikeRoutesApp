@@ -27,22 +27,7 @@ class BikeRouteTableViewController : UITableViewController{
         default:
             return 1
         }
-        
     }
-    func calcReview (reviewBikeCriteria : ReviewBikeCriteria) -> Int{
-        var allNumbers = Int()
-        let count = reviewBikeCriteria.mapEnumCriteria.count
-        for bike in reviewBikeCriteria.mapEnumCriteria{
-            let enumCriteria = bike.key
-            let destinationCrit  = reviewBikeCriteria.mapEnumCriteria[enumCriteria]
-            let number : Int = destinationCrit!.rawValue
-            allNumbers += number
-            print (allNumbers, number)
-        }
-        let result = allNumbers/count
-        return  result
-    }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
@@ -52,8 +37,8 @@ class BikeRouteTableViewController : UITableViewController{
             let bikeRoute = bikeRouteStore.getAllBikeRoutes()[indexPath.row]
             cell.dateLabel.text =  "\( DateFormatter.standard.string(from: bikeRoute.date))"
             cell.distanceLabel.text =  "\(bikeRoute.distance) km nach: \(bikeRoute.location)"
-            cell.beforeReview.text =  "\(calcReview(reviewBikeCriteria: bikeRoute.startCriteria))"
-            cell.finishReview.text = " \(calcReview(reviewBikeCriteria: bikeRoute.finishCriteria))"
+            cell.beforeReview.text =  "\(CalcCriteria.calcAverage(reviewBikeCriteria:bikeRoute.startCriteria))"
+            cell.finishReview.text = " \(CalcCriteria.calcAverage(reviewBikeCriteria: bikeRoute.finishCriteria))"
            // cell.durationLabel.text = "Kilometerstand: \(bikeRoute.driveDuration)"
                      //  cell.tourBreakCountLabel.text =  "Pausen: \(bikeRoute.tourBreakCount)"
          //   cell.temperaturLabel.text =  "Temperatur: \(bikeRoute.temperatur) Grad"
