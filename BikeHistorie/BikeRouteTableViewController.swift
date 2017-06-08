@@ -50,18 +50,26 @@ class BikeRouteTableViewController : UITableViewController{
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "BikeRouteCell", for: indexPath) as! BikeRouteTableViewCell
             let bikeRoute = bikeRouteStore.getAllBikeRoutes()[indexPath.row]
-            cell.dateLabel.text =  "gefahren am \( DateFormatter.standard.string(from: bikeRoute.date))"
-            cell.distanceLabel.text =  "\(bikeRoute.distance) km"
-            cell.ortLabel.text = "nach: \(bikeRoute.location)"
-            cell.finishReview.text = "Bewertung: \(calcReview(reviewBikeCriteria: bikeRoute.finishCriteria)) - \(calcReview(reviewBikeCriteria: bikeRoute.startCriteria))"
+            cell.dateLabel.text =  "\( DateFormatter.standard.string(from: bikeRoute.date))"
+            cell.distanceLabel.text =  "\(bikeRoute.distance) km nach: \(bikeRoute.location)"
+            cell.beforeReview.text =  "\(calcReview(reviewBikeCriteria: bikeRoute.startCriteria))"
+            cell.finishReview.text = " \(calcReview(reviewBikeCriteria: bikeRoute.finishCriteria))"
            // cell.durationLabel.text = "Kilometerstand: \(bikeRoute.driveDuration)"
                      //  cell.tourBreakCountLabel.text =  "Pausen: \(bikeRoute.tourBreakCount)"
          //   cell.temperaturLabel.text =  "Temperatur: \(bikeRoute.temperatur) Grad"
-          //  cell.beforeReview.text =  "Hin: \(calcReview(reviewBikeCriteria: bikeRoute.startCriteria))"
+            
+                 
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "BikeRouteCell2", for: indexPath)
-            cell.textLabel?.text = "Hier könnte Deine Werbung stehen!"
+            let bikeRoutes = bikeRouteStore.getAllBikeRoutes()
+            let countDrive = bikeRoutes.count
+            var countKm = 0.0
+            for bikeRoute in bikeRoutes {
+                let km =  bikeRoute.distance
+                countKm = countKm + km
+            }
+            cell.textLabel?.text = "Anzahl Fahrten: \(countDrive) und Kilometer \(countKm) "
             return cell
         }
     }

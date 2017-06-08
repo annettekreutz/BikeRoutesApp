@@ -30,9 +30,7 @@ class NewBikeTourViewController: UIViewController {
     
     @IBOutlet weak var datePicker: UIDatePicker!
     
-    
     @IBOutlet weak var locationTextField: UITextField!
-    
     
     var startReviewBikeCriteria = ReviewBikeCriteria()
     
@@ -54,15 +52,17 @@ class NewBikeTourViewController: UIViewController {
             mileageTextField.text = String( "\(bikeRoute.driveDuration)")
             temperaturTextField.text = String( "\(bikeRoute.temperatur)")
             distanceTextField.text = String( "\(bikeRoute.distance)")
-            
-            // DateFormatter.standard.string(from: bikeRoute.date)
-            
+            locationTextField.text = bikeRoute.location
+             
             dateLabel.text = DateFormatter.standard.string(from: bikeRoute.date)
             datePicker.date =   bikeRoute.date
             tourBreakCountTextField.text = String( "\(bikeRoute.tourBreakCount)")
             
             startReviewBikeCriteria.mapEnumCriteria = bikeRoute.startCriteria.mapEnumCriteria
             finishReviewBikeCriteria.mapEnumCriteria = bikeRoute.finishCriteria.mapEnumCriteria
+            
+            setAndCalcReview(reviewBikeCriteria: bikeRoute.startCriteria, slider: beforeSlider, label: beforeLabel)
+            setAndCalcReview(reviewBikeCriteria: bikeRoute.finishCriteria, slider: finishSlider, label: finishLabel)
         }
 
     }
@@ -133,10 +133,14 @@ class NewBikeTourViewController: UIViewController {
             alert(message: "gefahrene Kilomenter fehlen!", messageType: "Warnung", returnType: "Ok",uITextField: distanceTextField)
             return }
         guard let tourBreakCount = Int(tourBreakCountTextField.text ?? "") else {
-            alert(message: "Anzahl Pausen fehlen!", messageType: "Warnung", returnType: "Ok",uITextField: distanceTextField)
+            alert(message: "Anzahl Pausen fehlen!", messageType: "Warnung", returnType: "Ok",uITextField: tourBreakCountTextField)
             return }
         
-        guard let temperatur = Double(temperaturTextField.text ?? "") else { return }
+        guard let temperatur = Double(temperaturTextField.text ?? "") else {
+            alert(message: "Temperatur fehlt!", messageType: "Warnung", returnType: "Ok",uITextField: temperaturTextField)
+            return
+        }
+        
         if  startReviewBikeCriteria.mapEnumCriteria.count < 6  {
             alert(message:  "Erste Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",uITextField: distanceTextField)
             return }
@@ -182,7 +186,9 @@ class NewBikeTourViewController: UIViewController {
         }
      
     }
-    func calcReview (reviewBikeCriteria :ReviewBikeCriteria, slider: UISlider, label: UILabel){
+   
+    func setAndCalcReview (reviewBikeCriteria : ReviewBikeCriteria, slider: UISlider, label: UILabel){
+        
         var allNumbers = Int()
         let count = reviewBikeCriteria.mapEnumCriteria.count
         for bike in reviewBikeCriteria.mapEnumCriteria{
@@ -193,8 +199,9 @@ class NewBikeTourViewController: UIViewController {
             print (allNumbers, number)
         }
         let result = allNumbers/count
+        
+        
         label.text = String(result)
-        //print( result)
         slider.value = Float(result)
     }
     @IBAction func unwind(from segue: UIStoryboardSegue) {
@@ -202,11 +209,11 @@ class NewBikeTourViewController: UIViewController {
       //  if segue.identifier == "startIdent" {
         if driveReviewViewController.reviewType == "startIdent" {
             startReviewBikeCriteria = driveReviewViewController.reviewBikeCriteria
-            calcReview(reviewBikeCriteria : startReviewBikeCriteria,slider: beforeSlider, label: beforeLabel)
+            setAndCalcReview(reviewBikeCriteria : startReviewBikeCriteria,slider: beforeSlider, label: beforeLabel)
         }
          if segue.identifier == "finishIdent" {
             finishReviewBikeCriteria = driveReviewViewController.reviewBikeCriteria
-             calcReview(reviewBikeCriteria : finishReviewBikeCriteria,slider: finishSlider,label: finishLabel)
+             setAndCalcReview(reviewBikeCriteria : finishReviewBikeCriteria,slider: finishSlider,label: finishLabel)
         } else {// editBikeTour
             // do nothing
         }
