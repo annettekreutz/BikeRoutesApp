@@ -49,25 +49,19 @@ class BikeRouteTableViewController : UITableViewController{
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "BikeRouteCell", for: indexPath) as! BikeRouteTableViewCell
-            
             let bikeRoute = bikeRouteStore.getAllBikeRoutes()[indexPath.row]
-            cell.dateLabel.text =   DateFormatter.standard.string(from: bikeRoute.date)
-            cell.durationLabel.text = "Kilometerstand: \(bikeRoute.driveDuration)"
-            cell.distanceLabel.text =  "gefahren: \(bikeRoute.distance) km"
-            cell.tourBreakCountLabel.text =  "Pausen: \(bikeRoute.tourBreakCount)"
-            cell.temperaturLabel.text =  "Temperatur: \(bikeRoute.temperatur) Grad"
-            
-            cell.beforeReview.text =  "vorher: \(calcReview(reviewBikeCriteria: bikeRoute.startCriteria))"
-        
-            cell.finishReview.text = "hinterher: \(calcReview(reviewBikeCriteria: bikeRoute.finishCriteria))"
-
-            cell.temperaturLabel.text =  "Temperatur: \(bikeRoute.toDictionary().count)"
+            cell.dateLabel.text =  "gefahren am \( DateFormatter.standard.string(from: bikeRoute.date))"
+            cell.distanceLabel.text =  "\(bikeRoute.distance) km"
+            cell.ortLabel.text = "nach: \(bikeRoute.location)"
+            cell.finishReview.text = "Bewertung: \(calcReview(reviewBikeCriteria: bikeRoute.finishCriteria)) - \(calcReview(reviewBikeCriteria: bikeRoute.startCriteria))"
+           // cell.durationLabel.text = "Kilometerstand: \(bikeRoute.driveDuration)"
+                     //  cell.tourBreakCountLabel.text =  "Pausen: \(bikeRoute.tourBreakCount)"
+         //   cell.temperaturLabel.text =  "Temperatur: \(bikeRoute.temperatur) Grad"
+          //  cell.beforeReview.text =  "Hin: \(calcReview(reviewBikeCriteria: bikeRoute.startCriteria))"
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "BikeRouteCell2", for: indexPath)
-            
             cell.textLabel?.text = "Hier könnte Deine Werbung stehen!"
-            
             return cell
         }
     }
@@ -162,12 +156,12 @@ class BikeRouteTableViewController : UITableViewController{
         
     }
     
-    @IBAction func unwind(from segue: UIStoryboardSegue) {
-        guard let bikeTourViewController = segue.source as? NewBikeTourViewController else { return }
-        if segue.identifier == "editBikeTour" {
-       // if driveReviewViewController.reviewType == "editBikeTour" {
-           // bikeTourViewController = bikeTourViewController.reviewBikeCriteria
-        }
-        
-    }
+//    @IBAction func unwind(from segue: UIStoryboardSegue) {
+//        guard let bikeTourViewController = segue.source as? NewBikeTourViewController else { return }
+//        if segue.identifier == "editBikeTour" {
+//       // if driveReviewViewController.reviewType == "editBikeTour" {
+//           // bikeTourViewController = bikeTourViewController.reviewBikeCriteria
+//        }
+//        
+//    }
 }

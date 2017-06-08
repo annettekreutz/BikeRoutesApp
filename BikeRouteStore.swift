@@ -31,7 +31,8 @@ extension ReviewBikeCriteria {
 extension BikeRoute {
     
     func toDictionary() -> [String: Any] {
-        return ["driveDuration": driveDuration, "distance": distance, "tourBreakCount": tourBreakCount, "date": date, "temperatur": temperatur,
+        return ["driveDuration": driveDuration,"location": location,
+                "distance": distance, "tourBreakCount": tourBreakCount, "date": date, "temperatur": temperatur,
             "startCriteria": startCriteria.toDictionary(),
             "finishCriteria": finishCriteria.toDictionary()
         ]
@@ -39,6 +40,7 @@ extension BikeRoute {
     
     init(dicionary: [String: Any]) {
         self.driveDuration = dicionary["driveDuration"] as! TimeInterval
+        self.location = dicionary["location"] as! String
         self.distance = dicionary["distance"] as! Double
         self.tourBreakCount = dicionary["tourBreakCount"] as! Int
         self.date = dicionary["date"] as! Date
@@ -50,13 +52,13 @@ extension BikeRoute {
 
 protocol BikeRouteStoreing {
     func store(bikeRoute: BikeRoute)
-    
     func getAllBikeRoutes() -> [BikeRoute]
 }
 
 class BikeRouteStore: BikeRouteStoreing {
     private let userDefaultsKey = "BikeRouteStore"
     private let userDefaults = UserDefaults.standard
+   
     func store(bikeRoute: BikeRoute, tabIndex : Int) {
         var bikeList =  getAllBikeRoutesWithout(indexOfList: 999)
         bikeList[tabIndex] = bikeRoute

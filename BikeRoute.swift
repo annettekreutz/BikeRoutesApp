@@ -11,6 +11,7 @@ import Foundation
 struct BikeRoute {
  
     let driveDuration: TimeInterval
+    let location: String
     let distance: Double
     let tourBreakCount: Int
     let date: Date

@@ -30,11 +30,15 @@ class NewBikeTourViewController: UIViewController {
     
     @IBOutlet weak var datePicker: UIDatePicker!
     
+    
+    @IBOutlet weak var locationTextField: UITextField!
+    
+    
     var startReviewBikeCriteria = ReviewBikeCriteria()
     
     var finishReviewBikeCriteria = ReviewBikeCriteria()
     
-    var tableIndex = Int()
+    var tableIndex = Int(-1)
     
     var bikeRoute: BikeRoute?
     
@@ -112,9 +116,19 @@ class NewBikeTourViewController: UIViewController {
     }
     @IBAction func save(_ sender: Any) {
        //   mileageTextField.borderStyle.rawValue = UITextBorderStyleNone
+        guard let location = String(locationTextField.text ?? "") else {
+            alert(message: "Zielort fehlt!", messageType: "Warnung", returnType: "Ok",uITextField: locationTextField)
+            return }
+        if location.isEmpty {
+            alert(message: "Zielort fehlt!", messageType: "Warnung", returnType: "Ok",uITextField: locationTextField)
+            return
+        }
+   
         guard let driveDuration = TimeInterval(mileageTextField.text ?? "") else {
             alert(message: "Kilometerstand fehlt!", messageType: "Warnung", returnType: "Ok", uITextField: mileageTextField)
             return }
+  
+        
         guard let distance = Double(distanceTextField.text ?? "") else {
             alert(message: "gefahrene Kilomenter fehlen!", messageType: "Warnung", returnType: "Ok",uITextField: distanceTextField)
             return }
@@ -129,14 +143,16 @@ class NewBikeTourViewController: UIViewController {
         if   finishReviewBikeCriteria.mapEnumCriteria.count < 6  {
             alert(message: "Zweite Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",uITextField: distanceTextField)
             return }
-        let bikeRoute = BikeRoute(driveDuration: driveDuration, distance: distance, tourBreakCount: tourBreakCount, date: datePicker.date, temperatur: temperatur, startCriteria: startReviewBikeCriteria, finishCriteria: finishReviewBikeCriteria)
+        
+        let bikeRoute = BikeRoute(driveDuration: driveDuration,location:location, distance: distance, tourBreakCount: tourBreakCount, date: datePicker.date, temperatur: temperatur, startCriteria: startReviewBikeCriteria, finishCriteria: finishReviewBikeCriteria)
         
         let br = BikeRouteStore()
-        if(tableIndex == nil){
+        if(tableIndex == -1){
         // TODO recherch tableIndex and save an edited object
             br.store(bikeRoute: bikeRoute)
         } else {
-            br.store(bikeRoute: bikeRoute)
+            br.store(bikeRoute: bikeRoute, tabIndex: tableIndex)
+            tableIndex = -1
         }
       //  print(bikeRoute)
         back()
