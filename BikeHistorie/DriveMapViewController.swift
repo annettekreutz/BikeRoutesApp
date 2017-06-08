@@ -24,6 +24,12 @@ class DriveMapViewController: UIViewController, UISearchBarDelegate  {
     var pointAnnotation:MKPointAnnotation!
     var pinAnnotationView:MKPinAnnotationView!
     
+//    var location = String("Hanau")
+//    var latitude = Double(50.1264123)
+//    var longitude = Double(8.9283105)
+  
+    var mapLocation = MapLocation(location: "Hanau",latitude: Double(50.1264123),longitude: Double(8.9283105))
+
     @IBAction func showSearchBar(_ sender: Any) {
      
         
@@ -55,18 +61,29 @@ class DriveMapViewController: UIViewController, UISearchBarDelegate  {
             //3
             self.pointAnnotation = MKPointAnnotation()
             self.pointAnnotation.title = searchBar.text
-            self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude:     localSearchResponse!.boundingRegion.center.longitude)
             
+            let  latitude = Double(localSearchResponse!.boundingRegion.center.latitude)
+            let longitude = Double(localSearchResponse!.boundingRegion.center.longitude)
             
+            self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude
+                , longitude: longitude)
+            
+            self.mapLocation = MapLocation(location: searchBar.text!, latitude: latitude, longitude: longitude)
+            self.testLabel.text = self.mapLocation.location
             self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
             self.mapView.centerCoordinate = self.pointAnnotation.coordinate
             self.mapView.addAnnotation(self.pinAnnotationView.annotation!)
         }
     }
+     func updateAttributes(mapLocation :MapLocation) {
+        self.mapLocation = mapLocation;
+        
+     }
     override func viewDidLoad() {
         super.viewDidLoad()
        // Hanau
-        let initialLocation = CLLocation(latitude: 50.1264123, longitude: 8.9283105)
+        testLabel.text = mapLocation.location
+        let initialLocation = CLLocation(latitude: mapLocation.latitude, longitude: mapLocation.longitude)
  
         centerMapOnLocation(location: initialLocation)
         

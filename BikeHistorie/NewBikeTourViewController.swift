@@ -40,6 +40,8 @@ class NewBikeTourViewController: UIViewController {
     
     var bikeRoute: BikeRoute?
     
+    var mapLocation = MapLocation()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if(isEditing){
@@ -198,6 +200,7 @@ class NewBikeTourViewController: UIViewController {
         }
         if segue.identifier == "mapIdent" {
             guard let driveMapViewController = segue.destination as? DriveMapViewController else { return }
+            driveMapViewController.updateAttributes(mapLocation: mapLocation)
           //  driveMapViewController.testLabel.text = "test"
           //  driveMapViewController.setParam( )
 //            driveMapViewController.setParams(reviewBikeCriteria: finishReviewBikeCriteria, reviewType: "finishIdent")
@@ -211,18 +214,26 @@ class NewBikeTourViewController: UIViewController {
         label.text = String(result)
         slider.value = Float(result)
     }
+    
+    func setLocation (){
+          self.locationTextField.text = mapLocation.location
+    }
+
     @IBAction func unwind(from segue: UIStoryboardSegue) {
+        guard let driveMapViewController = segue.source as? DriveMapViewController else { return }
         guard let driveReviewViewController = segue.source as? DriveReviewViewController else { return }
+       
       //  if segue.identifier == "startIdent" {
         if driveReviewViewController.reviewType == "startIdent" {
             startReviewBikeCriteria = driveReviewViewController.reviewBikeCriteria
             setAndCalcReview(reviewBikeCriteria : startReviewBikeCriteria,slider: beforeSlider, label: beforeLabel)
         }
-         if segue.identifier == "finishIdent" {
+        else if segue.identifier == "finishIdent" {
             finishReviewBikeCriteria = driveReviewViewController.reviewBikeCriteria
              setAndCalcReview(reviewBikeCriteria : finishReviewBikeCriteria,slider: finishSlider,label: finishLabel)
-        } else {// editBikeTour
-            // do nothing
+        } else if segue.identifier == "mapIdent" {
+            mapLocation = driveMapViewController.mapLocation
+            
         }
         
     }

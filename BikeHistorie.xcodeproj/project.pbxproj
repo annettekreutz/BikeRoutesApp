@@ -25,6 +25,7 @@
 		67DBFA2C1EDFFE80005E56D9 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DBFA2B1EDFFE80005E56D9 /* DateUtil.swift */; };
 		67DBFA301EE03B95005E56D9 /* ReviewBikeCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DBFA2F1EE03B95005E56D9 /* ReviewBikeCriteria.swift */; };
 		67EDBD151EE804A800BA2ABA /* DriveMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EDBD141EE804A800BA2ABA /* DriveMapViewController.swift */; };
+		67FE18A51EE9A210003C50DA /* MapLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FE18A41EE9A210003C50DA /* MapLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		67DBFA2E1EE019FC005E56D9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		67DBFA2F1EE03B95005E56D9 /* ReviewBikeCriteria.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewBikeCriteria.swift; sourceTree = "<group>"; };
 		67EDBD141EE804A800BA2ABA /* DriveMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriveMapViewController.swift; sourceTree = "<group>"; };
+		67FE18A41EE9A210003C50DA /* MapLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				6725F1231EDDE70500D43EED /* BikeRouteTableViewCell.swift */,
 				6725F11D1EDD639D00D43EED /* BikeRoute.swift */,
 				67DBFA2F1EE03B95005E56D9 /* ReviewBikeCriteria.swift */,
+				67FE18A41EE9A210003C50DA /* MapLocation.swift */,
 				6725F11F1EDD9BD500D43EED /* BikeRouteStore.swift */,
 				675387801EE97C570073B342 /* UIView+RoundedCorners.swift */,
 				67D3E47D1ED87ADF000EA75B /* BikeHistorie */,
@@ -261,6 +264,7 @@
 				6725F1241EDDE70500D43EED /* BikeRouteTableViewCell.swift in Sources */,
 				6725F1201EDD9BD500D43EED /* BikeRouteStore.swift in Sources */,
 				67DBFA2C1EDFFE80005E56D9 /* DateUtil.swift in Sources */,
+				67FE18A51EE9A210003C50DA /* MapLocation.swift in Sources */,
 				675387811EE97C570073B342 /* UIView+RoundedCorners.swift in Sources */,
 				67DBFA2A1EDF05C7005E56D9 /* DriveReviewViewController.swift in Sources */,
 				67EDBD151EE804A800BA2ABA /* DriveMapViewController.swift in Sources */,
