@@ -39,7 +39,7 @@ class DriveMapViewController: UIViewController, UISearchBarDelegate  {
         self.testLabel.text = location
         weather.getWeather(city: location, callback: { weather in
             DispatchQueue.main.async {
-                self.tempLabel.text = weather
+                self.tempLabel.text = weather   
             }
         })
         

@@ -81,10 +81,27 @@ class WeatherGetter {
                 names.append("max \(value - without) º")
             }
         }
+        if let main = json?["wind"] as? NSDictionary {
+            print("Wind existe")
+            if let temp = main["speed"] {
+                //  print("Temp existe")
+                let value = (temp as! Double)
+                names.append("Wind \(value) m/s")
+            }
+        }
+        if let main = json?["clouds"] as? NSDictionary {
+            print("Wolken existe")
+            if let temp = main["all"] {
+                //  print("Temp existe")
+                let value = (temp as! Double)
+                names.append("\(value) % bewölkt")
+            }
+        }
         var  wetter = String()
     
-        wetter = names.description
-  
+       // wetter = names.description
+        wetter = names.joined(separator: ", ") as String
+      //  var stringVarible = names as String
         print (wetter)
         return wetter
     }
