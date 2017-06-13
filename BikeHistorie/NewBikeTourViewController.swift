@@ -200,6 +200,7 @@ class NewBikeTourViewController: UIViewController {
         if segue.identifier == "mapIdent" {
             guard let driveMapViewController = segue.destination as? DriveMapViewController else { return }
             mapLocation.location=locationTextField.text!
+            driveMapViewController.mapLocation=mapLocation
         }
     }
    

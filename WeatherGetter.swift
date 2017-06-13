@@ -5,19 +5,61 @@ import Foundation
 class WeatherGetter {
     
     private let openWeatherMapBaseURL = "http://api.openweathermap.org/data/2.5/weather"
+    
+    private let histWeatherMapBaseURL = "http://history.openweathermap.org/data/2.5/history"
    // "YOUR API KEY HERE"
     private let openWeatherMapAPIKey = "a16c28496502e88d98118ad38aece9e8"
     var dataString = String()
     var daten = Data()
-    
     func getWeather(city: String, callback: @escaping (String) -> ()) {
+        
+        // This is a pretty simple networking task, so the shared session will do.
+        // let session = NSURLSession.sharedSession()
+        
+        let session = URLSession.shared
+        
+        let weatherRequestURL = URL(string: "\(openWeatherMapBaseURL)?APPID=\(openWeatherMapAPIKey)&q=\(city)")!
+        
+        
+        // The data task retrieves the data.
+        // let dataTask = session.dataTaskWithURL(weatherRequestURL) {
+        //     (data: NSData?, response: NSUR	LResponse?, error: NSError?) in
+        // The data task retrieves the data.
+        // let dataTask = session.dataTask(with: weatherRequestURL, completionHandler)  {
+        //     (data: Data?, response: URLResponse?, error: Error?) in
+        let dataTask = session.dataTask(with: weatherRequestURL as URL) {
+            (data: Data?, response: URLResponse?, error: Error?) in
+            
+            if let error = error {
+                // Case 1: Error
+                // We got some kind of error while trying to get data from the server.
+                print("Error:\n\(error)")
+            }
+            else {
+                // Case 2: Success
+                // We got a response from the server!
+                print("Raw data:\n\(data!)\n")
+                let dataString = String(data: data!, encoding: .utf8)
+                
+                self.dataString = dataString!
+                self.daten = data!
+                callback(self.locateWetter())
+                
+            }
+        } //as! (Data?, URLResponse?, Error?) -> Void
+        
+        // The data task is set up...launch it!
+        dataTask.resume()
+    }
+
+    func getHistWeather(city: String, callback: @escaping (String) -> ()) {
         
         // This is a pretty simple networking task, so the shared session will do.
        // let session = NSURLSession.sharedSession()
 
         let session = URLSession.shared
 
-        let weatherRequestURL = URL(string: "\(openWeatherMapBaseURL)?APPID=\(openWeatherMapAPIKey)&q=\(city)")!
+        let weatherRequestURL = URL(string: "\(histWeatherMapBaseURL)?APPID=\(openWeatherMapAPIKey)&q=\(city)")!
         
         
         // The data task retrieves the data.

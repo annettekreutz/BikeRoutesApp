@@ -50,7 +50,7 @@ class DriveMapViewController: UIViewController, UISearchBarDelegate  {
             centerMapOnLocation(location: initialLocation)
             return
         }
-        searchWithText(searchText:  mapLocation.location)
+        searchWithText(searchText:location)
        
     }
     
@@ -99,8 +99,8 @@ class DriveMapViewController: UIViewController, UISearchBarDelegate  {
            // let initialLocation = CLLocation(latitude: latitude, longitude: longitude)
             
             self.mapLocation = MapLocation(location: searchText,  latitude: latitude, longitude: longitude , temp: self.temp)
-            self.testLabel.text = self.mapLocation.location
-            self.tempLabel.text = self.mapLocation.temp
+//            self.testLabel.text = self.mapLocation.location
+//            self.tempLabel.text = self.mapLocation.temp
             self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
             self.mapView.centerCoordinate = self.pointAnnotation.coordinate
             self.mapView.addAnnotation(self.pinAnnotationView.annotation!)
