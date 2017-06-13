@@ -10,9 +10,12 @@ import UIKit
 
 class BikeRouteTableViewController : UITableViewController{
     
-    
-    
     let bikeRouteStore = BikeRouteStore()
+    
+    // view starting
+    override func viewDidLoad() {
+        navigationItem.title = "Bike Routes"
+    }
 
     // Number of sections
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -28,7 +31,7 @@ class BikeRouteTableViewController : UITableViewController{
             return 1
         }
     }
-    
+    // write all cells by bike record
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         switch indexPath.section {
@@ -39,47 +42,33 @@ class BikeRouteTableViewController : UITableViewController{
             cell.distanceLabel.text =  "\(bikeRoute.distance) km nach: \(bikeRoute.location)"
             cell.beforeReview.text =  "\(CalcCriteria.calcAverage(reviewBikeCriteria:bikeRoute.startCriteria))"
             cell.finishReview.text = " \(CalcCriteria.calcAverage(reviewBikeCriteria: bikeRoute.finishCriteria))"
-           // cell.durationLabel.text = "Kilometerstand: \(bikeRoute.driveDuration)"
-                     //  cell.tourBreakCountLabel.text =  "Pausen: \(bikeRoute.tourBreakCount)"
-         //   cell.temperaturLabel.text =  "Temperatur: \(bikeRoute.temperatur) Grad"
             
-                 
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "BikeRouteCell2", for: indexPath)
-            let bikeRoutes = bikeRouteStore.getAllBikeRoutes()
-            let countDrive = bikeRoutes.count
-            var countKm = 0.0
-            for bikeRoute in bikeRoutes {
-                let km =  bikeRoute.distance
-                countKm = countKm + km
-            }
-            cell.textLabel?.text = "Anzahl Fahrten: \(countDrive), \(countKm) km"
+            
+            
+            cell.textLabel?.text = infoOfSystemRecord()
             return cell
         }
     }
- // see https://stackoverflow.com/questions/3309484/uitableviewcell-show-delete-button-on-swipe
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        //let bikeRoute = bikeRouteStore.getAllBikeRoutes()[indexPath.row]
-//        let bikeRoute = bikeRouteStore.getAllBikeRoutes()[indexPath.row]
-//
-//        
-//        if editingStyle == .delete {
-//            
-//            let index = Int(indexPath.row)
-//            // remove the item from the data model
-//            bikeRouteStore.remove(indexOfList: index)
-//
-//            // delete the table view row
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//            
-//        } else if editingStyle == .insert {
-//            // Not used in our example, but if you were adding a new row, this is where you would do it.
-//           bikeRouteStore.insert(bikeRoute: bikeRoute)
-//        }
-//    }
+    func infoOfSystemRecord()-> String{
+        let bikeRoutes = bikeRouteStore.getAllBikeRoutes()
+        let countDrive = bikeRoutes.count
+        if(countDrive<=0){
+            return "keine Fahrten enthalten"
+            
+        }
+        var countKm = 0.0
+        for bikeRoute in bikeRoutes {
+            let km =  bikeRoute.distance
+            countKm = countKm + km
+        }
+        return "\(countDrive) Fahrten (\(countKm) km)"
+    }
     
-     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    // do delete copy selected record
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         // action one
         let insertAction = UITableViewRowAction(style: .default, title: "Copy", handler: { (action, indexPath) in
@@ -90,22 +79,7 @@ class BikeRouteTableViewController : UITableViewController{
             tableView.reloadData()
          })
          insertAction.backgroundColor = UIColor.blue
-        
-        // action one
-//        let editAction = UITableViewRowAction(style: .default, title: "Edit", handler: { (action, indexPath) in
-//            print("Edit tapped")
-//            
-//            let bikeRoute = self.bikeRouteStore.getAllBikeRoutes()[indexPath.row]
-//         //   driveReviewViewController DriveReviewViewController
-//            // TODO save state of edit
-//            // load 
-//            
-//           // self.bikeRouteStore.insert(bikeRoute: bikeRoute)
-//            tableView.reloadData()
-//        })
-//        editAction.backgroundColor = UIColor.yellow
-
-        
+    
          // action two
          let deleteAction = UITableViewRowAction(style: .default, title: "Delete", handler: { (action, indexPath) in
             print("Delete tapped")
@@ -129,30 +103,15 @@ class BikeRouteTableViewController : UITableViewController{
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
-
+    // cache edited record for saving
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editBikeTour" {
             guard let editBikeTourNavigationController = segue.destination as? UINavigationController, let editBikeTourViewController = editBikeTourNavigationController.viewControllers.first as? NewBikeTourViewController else {
                 return
             }
-//            guard let editBikeTourViewController = editBikeTourNavigationController.viewControllers.first as? NewBikeTourViewController else {
-//                return
-//            }
             let indexPath = tableView.indexPathForSelectedRow?.row
             let bikerRoute = bikeRouteStore.getAllBikeRoutes()[indexPath!]
             editBikeTourViewController.setAttributes(bikeRoute: bikerRoute, tableIndex: indexPath!)
-           // see http://www.codingexplorer.com/segue-uitableviewcell-taps-swift/))
-            
         }
-        
     }
-    
-//    @IBAction func unwind(from segue: UIStoryboardSegue) {
-//        guard let bikeTourViewController = segue.source as? NewBikeTourViewController else { return }
-//        if segue.identifier == "editBikeTour" {
-//       // if driveReviewViewController.reviewType == "editBikeTour" {
-//           // bikeTourViewController = bikeTourViewController.reviewBikeCriteria
-//        }
-//        
-//    }
 }

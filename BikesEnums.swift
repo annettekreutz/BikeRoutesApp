@@ -5,6 +5,8 @@
 //  Created by Team_iOS on 31.05.17.
 //  Copyright © 2017 Team_iOS. All rights reserved.
 //
+
+// key of criteria map
 enum EnumCriteria: String {
     case slowly
     case quickly
@@ -13,6 +15,8 @@ enum EnumCriteria: String {
     case starting
     case breaking
 }
+
+//  scale
 enum EnumStar: Int {
     case star1=1
     case star2

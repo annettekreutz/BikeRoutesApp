@@ -23,35 +23,63 @@ class DriveMapViewController: UIViewController, UISearchBarDelegate  {
     var error:NSError!
     var pointAnnotation:MKPointAnnotation!
     var pinAnnotationView:MKPinAnnotationView!
-    
-//    var location = String("Hanau")
-//    var latitude = Double(50.1264123)
-//    var longitude = Double(8.9283105)
-  
+    let regionRadius: CLLocationDistance = 1000
     var mapLocation = MapLocation(location: "Hanau",latitude: Double(50.1264123),longitude: Double(8.9283105))
-
-    @IBAction func showSearchBar(_ sender: Any) {
-     
+    
+    @IBOutlet weak var tempLabel: UILabel!
+    var temp = String()
+    
+    var weather = WeatherGetter()
+    
+    // view starting
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.title = "Location of Tour"
+        let location = mapLocation.location
+        self.testLabel.text = location
+        weather.getWeather(city: location, callback: { weather in
+            DispatchQueue.main.async {
+                self.tempLabel.text = weather
+            }
+        })
         
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.hidesNavigationBarDuringPresentation = false
-        self.searchController.searchBar.delegate =  self
-        present(searchController, animated: true, completion: nil)
-    }
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
-        //1
-        searchBar.resignFirstResponder()
-        dismiss(animated: true, completion: nil)
-        if self.mapView.annotations.count != 0{
-            annotation = self.mapView.annotations[0]
-            self.mapView.removeAnnotation(annotation)
+        let latitude = mapLocation.latitude
+        let longitude = mapLocation.longitude
+        if(latitude > 0 && longitude > 0 ) {
+            let initialLocation = CLLocation(latitude: latitude, longitude: longitude)
+            centerMapOnLocation(location: initialLocation)
+            return
         }
+        searchWithText(searchText:  mapLocation.location)
+       
+    }
+    
+//    // search bar
+//    @IBAction func showSearchBar(_ sender: Any) {
+//        searchController = UISearchController(searchResultsController: nil)
+//        searchController.hidesNavigationBarDuringPresentation = false
+//        self.searchController.searchBar.delegate =  self
+//        present(searchController, animated: true, completion: nil)
+//    }
+    // action search
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
+//        //1
+//        searchBar.resignFirstResponder()
+//        dismiss(animated: true, completion: nil)
+//        if self.mapView.annotations.count != 0{
+//            annotation = self.mapView.annotations[0]
+//            self.mapView.removeAnnotation(annotation)
+//        }
+//        searchWithText(searchText: searchBar.text!)
+//    }
+    // search location text without coord
+    func searchWithText(searchText: String ){
         //2
         localSearchRequest = MKLocalSearchRequest()
-        localSearchRequest.naturalLanguageQuery = searchBar.text
+        localSearchRequest.naturalLanguageQuery = searchText
         localSearch = MKLocalSearch(request: localSearchRequest)
+       
         localSearch.start { (localSearchResponse, error) -> Void in
-            
             if localSearchResponse == nil{
                 let alertController = UIAlertController(title: nil, message: "Place Not Found", preferredStyle: UIAlertControllerStyle.alert)
                 alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
@@ -60,51 +88,43 @@ class DriveMapViewController: UIViewController, UISearchBarDelegate  {
             }
             //3
             self.pointAnnotation = MKPointAnnotation()
-            self.pointAnnotation.title = searchBar.text
+            self.pointAnnotation.title = searchText
             
             let  latitude = Double(localSearchResponse!.boundingRegion.center.latitude)
             let longitude = Double(localSearchResponse!.boundingRegion.center.longitude)
+            let regionRadius: CLLocationDistance = 1000
             
             self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: latitude
                 , longitude: longitude)
+           // let initialLocation = CLLocation(latitude: latitude, longitude: longitude)
             
-            self.mapLocation = MapLocation(location: searchBar.text!, latitude: latitude, longitude: longitude)
+            self.mapLocation = MapLocation(location: searchText,  latitude: latitude, longitude: longitude , temp: self.temp)
             self.testLabel.text = self.mapLocation.location
+            self.tempLabel.text = self.mapLocation.temp
             self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
             self.mapView.centerCoordinate = self.pointAnnotation.coordinate
             self.mapView.addAnnotation(self.pinAnnotationView.annotation!)
+            
+            let coordinateRegion = MKCoordinateRegionMakeWithDistance(self.pointAnnotation.coordinate, regionRadius * 2.0, regionRadius * 2.0)
+            self.mapView.setRegion(coordinateRegion, animated: true)
+
         }
     }
-     func updateAttributes(mapLocation :MapLocation) {
+    // update location by seque
+    func updateAttributes(mapLocation :MapLocation) {
         self.mapLocation = mapLocation;
-        
-     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-       // Hanau
-        testLabel.text = mapLocation.location
-        let initialLocation = CLLocation(latitude: mapLocation.latitude, longitude: mapLocation.longitude)
- 
-        centerMapOnLocation(location: initialLocation)
-        
+        self.temp = mapLocation.temp
+     
     }
+  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    let regionRadius: CLLocationDistance = 1000
+    // set location with coord and radius
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
     }
- 
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
 
 }

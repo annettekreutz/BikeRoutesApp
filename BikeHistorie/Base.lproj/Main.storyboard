@@ -155,7 +155,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Bike Routes" id="cwd-g6-5ds">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="802-X2-9iY">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="802-X2-9iY">
                             <connections>
                                 <action selector="editEntry:" destination="I07-p0-TgO" id="bOR-IL-e1N"/>
                             </connections>
@@ -170,7 +170,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0pr-KK-GM6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1180" y="-22.03898050974513"/>
+            <point key="canvasLocation" x="-1062" y="-22"/>
         </scene>
         <!--Drive Review View Controller-->
         <scene sceneID="ejO-9L-3vY">
@@ -467,11 +467,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="UXr-N0-a1n">
-                                <rect key="frame" x="16" y="110" width="343" height="513"/>
+                                <rect key="frame" x="16" y="125" width="343" height="498"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDy-Ak-mxi">
-                                <rect key="frame" x="21" y="84" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7c-2Z-TCL">
+                                <rect key="frame" x="18" y="101" width="338" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDy-Ak-mxi">
+                                <rect key="frame" x="18" y="72" width="338" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -480,7 +487,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="UXr-N0-a1n" firstAttribute="leading" secondItem="ol5-13-Ino" secondAttribute="leadingMargin" id="Gv1-3S-rkG"/>
-                            <constraint firstItem="UXr-N0-a1n" firstAttribute="top" secondItem="eDy-Ak-mxi" secondAttribute="bottom" constant="5" id="IJ7-mE-PjI"/>
+                            <constraint firstItem="UXr-N0-a1n" firstAttribute="top" secondItem="eDy-Ak-mxi" secondAttribute="bottom" constant="20" id="IJ7-mE-PjI"/>
                             <constraint firstItem="VFH-0K-4r9" firstAttribute="top" secondItem="UXr-N0-a1n" secondAttribute="bottom" id="OdC-Md-fIQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UXr-N0-a1n" secondAttribute="trailing" id="UNv-9r-4t6"/>
                             <constraint firstItem="eDy-Ak-mxi" firstAttribute="top" secondItem="EEz-ph-edi" secondAttribute="bottom" constant="20" id="asb-0w-oaY"/>
@@ -488,22 +495,17 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Title" id="HnY-4s-Krg">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="bfx-7J-qrC">
-                            <connections>
-                                <action selector="showSearchBar:" destination="8Nf-Pk-hTX" id="V7C-ga-QOx"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Title" id="HnY-4s-Krg"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="UXr-N0-a1n" id="WEG-gO-rWd"/>
+                        <outlet property="tempLabel" destination="R7c-2Z-TCL" id="nVf-LP-7EU"/>
                         <outlet property="testLabel" destination="eDy-Ak-mxi" id="q3f-QD-hD7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1P1-WJ-yxS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="660" y="-1193"/>
+            <point key="canvasLocation" x="1789.5999999999999" y="-1119.4902548725638"/>
         </scene>
         <!--New Bike Tour View Controller-->
         <scene sceneID="Uk4-17-qfG">
@@ -693,7 +695,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="KrJ-mf-L0W"/>
+        <segue reference="vFh-lb-bQN"/>
         <segue reference="ad2-Xl-Zmj"/>
     </inferredMetricsTieBreakers>
 </document>

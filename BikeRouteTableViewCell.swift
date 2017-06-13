@@ -10,14 +10,9 @@ import UIKit
 
 class BikeRouteTableViewCell: UITableViewCell {
 
+    // bike information for every table entry
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    
     @IBOutlet weak var beforeReview: UILabel!
     @IBOutlet weak var finishReview: UILabel!
-    //@IBOutlet weak var beforeReview: UILabel!
-      // @IBOutlet weak var durationLabel: UILabel!
-  //  @IBOutlet weak var temperaturLabel: UILabel!
-   // @IBOutlet weak var tourBreakCountLabel: UILabel!
-    
 }

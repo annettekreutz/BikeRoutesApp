@@ -10,6 +10,7 @@ import Foundation
 
 struct BikeRoute {
  
+    // transfer data from edit view to table view
     let driveDuration: TimeInterval
     let location: String
     let distance: Double

@@ -22,7 +22,6 @@ extension ReviewBikeCriteria {
         for dic in dicionary {
             result[EnumCriteria(rawValue: dic.key)!]=EnumStar(rawValue: dic.value)!
         }
-        
         self.init()
         self.mapEnumCriteria = result
     }
@@ -55,19 +54,25 @@ protocol BikeRouteStoreing {
     func getAllBikeRoutes() -> [BikeRoute]
 }
 
+// Persistence UserDefaults as defaults system.
 class BikeRouteStore: BikeRouteStoreing {
     private let userDefaultsKey = "BikeRouteStore"
     private let userDefaults = UserDefaults.standard
    
+    // persist record in UserDefaults by key "BikeRouteStore"
     func store(bikeRoute: BikeRoute, tabIndex : Int) {
-        var bikeList =  getAllBikeRoutesWithout(indexOfList: 999)
+        let withOutRecord = 9999999
+        // get all records
+        var bikeList =  getAllBikeRoutesWithout(indexOfList: withOutRecord)
         bikeList[tabIndex] = bikeRoute
+        // clear all records from system
         userDefaults.removeObject(forKey: userDefaultsKey)
+        // store list in sysem
         for bike  in bikeList {
             store(bikeRoute: bike)
         }
-
-             }
+    }
+    // update of a selected table entry
     func store(bikeRoute: BikeRoute) {
         var array = getSerializedData()
         //Add new Data
@@ -77,7 +82,7 @@ class BikeRouteStore: BikeRouteStoreing {
         userDefaults.set(array, forKey: userDefaultsKey)
         userDefaults.synchronize()
     }
-    
+    // get all records from system
     private func getSerializedData() -> [Dictionary<String, Any>] {
         //Get list from Disk
         let untypedStoredData = userDefaults.array(forKey: userDefaultsKey)
@@ -92,6 +97,7 @@ class BikeRouteStore: BikeRouteStoreing {
         }
         return result
     }
+    // get all record from system without a indexed record
     func getAllBikeRoutesWithout(indexOfList : Int) -> [BikeRoute] {
         var result = [BikeRoute]()
         var index = Int(0)
@@ -104,6 +110,7 @@ class BikeRouteStore: BikeRouteStoreing {
         return result
     }
  
+    // remove an record from system
     func remove(indexOfList : Int){
         let bikeList =  getAllBikeRoutesWithout(indexOfList: indexOfList)
         userDefaults.removeObject(forKey: userDefaultsKey)
@@ -111,6 +118,7 @@ class BikeRouteStore: BikeRouteStoreing {
             store(bikeRoute: bike)
         }
     }
+    //    insert a new record
     func insert(bikeRoute : BikeRoute){
         store(bikeRoute: bikeRoute)
     }

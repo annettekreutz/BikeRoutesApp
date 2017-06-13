@@ -6,10 +6,17 @@
 //  Copyright © 2017 Team_iOS. All rights reserved.
 //
 
+//
+//  ReviewBikeCriteria.swift
+//  BikeHistorie
+//
+//  Created by Team_iOS on 30.05.17.
+//  Copyright © 2017 Team_iOS. All rights reserved.
+//
 import Foundation
 
 class ReviewBikeCriteria {
-    
+    // transfer data from review view to edit view
     var mapEnumCriteria : [EnumCriteria: EnumStar] = [:] {
         willSet(newMapEnumCriteria) {
             print("About to set totalSteps to \(newMapEnumCriteria)")
@@ -25,6 +32,5 @@ class ReviewBikeCriteria {
     
     convenience init() {
         self.init(mapEnumCriteria: [:])
-        //mapEnumCriteria[EnumCriteria.breaking]=EnumStar.star1
     }
 }
