@@ -15,6 +15,7 @@
 //
 import Foundation
 
+
 class ReviewBikeCriteria {
     // transfer data from review view to edit view
     var mapEnumCriteria : [EnumCriteria: EnumStar] = [:] {

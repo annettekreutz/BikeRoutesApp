@@ -46,6 +46,7 @@ extension BikeRoute {
         self.temperatur = dicionary["temperatur"] as! Double
         self.finishCriteria = ReviewBikeCriteria(dicionary: dicionary["finishCriteria"] as! [String: Int])
         self.startCriteria = ReviewBikeCriteria(dicionary: dicionary["startCriteria"] as! [String: Int])
+        
     }
 }
 
@@ -112,6 +113,10 @@ class BikeRouteStore: BikeRouteStoreing {
  
     // remove an record from system
     func remove(indexOfList : Int){
+        
+        // TODO delegete and standford
+        
+        
         let bikeList =  getAllBikeRoutesWithout(indexOfList: indexOfList)
         userDefaults.removeObject(forKey: userDefaultsKey)
         for bike  in bikeList {

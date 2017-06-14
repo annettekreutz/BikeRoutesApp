@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CDBikeRoute" representedClassName="CDBikeRoute" syncable="YES" codeGenerationType="class">
+        <attribute name="date" attributeType="Date" defaultDateTimeInterval="519115980" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="distance" attributeType="Double" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="duration" attributeType="Double" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="location" attributeType="String" syncable="YES"/>
+        <attribute name="temperatur" optional="YES" attributeType="Double" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="tourBreakCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="selfConfidenceAfter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDReviewBikeCriteria" syncable="YES"/>
+        <relationship name="selfConfidenceBefore" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDReviewBikeCriteria" syncable="YES"/>
+    </entity>
+    <entity name="CDReviewBikeCriteria" representedClassName="CDReviewBikeCriteria" syncable="YES" codeGenerationType="class">
+        <attribute name="breaking" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="kurve" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="quickly" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="slowly" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="starting" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="turn" attributeType="Integer 16" defaultValueString="1" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Properties" representedClassName="Properties" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="CDBikeRoute" positionX="-180" positionY="26" width="128" height="165"/>
+        <element name="CDReviewBikeCriteria" positionX="-432" positionY="-45" width="128" height="133"/>
+        <element name="Properties" positionX="-477" positionY="209" width="119" height="73"/>
+    </elements>
+</model>

@@ -7,52 +7,66 @@
 //
 
 import UIKit
+import CoreData
 
-class BikeRouteTableViewController : UITableViewController{
+class BikeRouteTableViewController : UITableViewController {
     
     let bikeRouteStore = BikeRouteStore()
+    var managedObjectContext: NSManagedObjectContext!
+    var fetchedResultsController: NSFetchedResultsController<CDBikeRoute>!
     
     // view starting
     override func viewDidLoad() {
-        navigationItem.title = "Bike Routes"
+        title = "Bike Routes"
+        let fetchRequest = NSFetchRequest<CDBikeRoute>(entityName: "CDBikeRoute")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        try? fetchedResultsController.performFetch()
     }
 
     // Number of sections
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return fetchedResultsController.sections?.count ?? 0
     }
     
     // Number of rows in section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return bikeRouteStore.getAllBikeRoutes().count
-        default:
-            return 1
-        }
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
+    
     // write all cells by bike record
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        switch indexPath.section {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "BikeRouteCell", for: indexPath) as! BikeRouteTableViewCell
-            let bikeRoute = bikeRouteStore.getAllBikeRoutes()[indexPath.row]
-            cell.dateLabel.text =  "\( DateFormatter.standard.string(from: bikeRoute.date))"
-            cell.distanceLabel.text =  "\(bikeRoute.distance) km nach: \(bikeRoute.location)"
-            cell.beforeReview.text =  "\(CalcCriteria.calcAverage(reviewBikeCriteria:bikeRoute.startCriteria))"
-            cell.finishReview.text = " \(CalcCriteria.calcAverage(reviewBikeCriteria: bikeRoute.finishCriteria))"
-            
-            return cell
-        default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "BikeRouteCell2", for: indexPath)
-            
-            
-            cell.textLabel?.text = infoOfSystemRecord()
-            return cell
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BikeRouteCell", for: indexPath) as! BikeRouteTableViewCell
+        let bikeRoute = fetchedResultsController.object(at: indexPath)
+        cell.dateLabel.text =  "\( DateFormatter.standard.string(from: bikeRoute.date! as Date))"
+        cell.distanceLabel.text =  "\(bikeRoute.distance) km nach: \(bikeRoute.location ?? "")"
+        cell.beforeReview.text = "\(CalcCriteria.calcAverage(cdReviewBikeCriteria:bikeRoute.selfConfidenceBefore!))"
+        cell.finishReview.text = " \(CalcCriteria.calcAverage(cdReviewBikeCriteria: bikeRoute.selfConfidenceAfter!))"
+        
+        return cell
     }
-    func infoOfSystemRecord()-> String{
+    // maybe ... delegetes
+//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, cellForRowAt indexPath: IndexPath) {
+//        switch editingStyle {
+//        case .Delete:
+//            // remove the deleted item from the model
+//            let appDel:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+//            let context:NSManagedObjectContext = appDel.managedObjectContext
+//            context.deleteObject(myData[indexPath.row] )
+//            myData.removeAtIndex(indexPath.row)
+//            do {
+//                try context.save()
+//            } catch _ {
+//            }
+//            
+//            // remove the deleted item from the `UITableView`
+//            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+//        default:
+//            return
+//        }
+//    }
+    
+    func infoOfSystemRecord() -> String{
         let bikeRoutes = bikeRouteStore.getAllBikeRoutes()
         let countDrive = bikeRoutes.count
         if(countDrive<=0){
@@ -67,35 +81,35 @@ class BikeRouteTableViewController : UITableViewController{
         return "\(countDrive) Fahrten (\(countKm) km)"
     }
     
-    // do delete copy selected record
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        // action one
-        let insertAction = UITableViewRowAction(style: .default, title: "Copy", handler: { (action, indexPath) in
-             print("Copy tapped")
-            
-            let bikeRoute = self.bikeRouteStore.getAllBikeRoutes()[indexPath.row]
-            self.bikeRouteStore.insert(bikeRoute: bikeRoute)
-            tableView.reloadData()
-         })
-         insertAction.backgroundColor = UIColor.blue
-    
-         // action two
-         let deleteAction = UITableViewRowAction(style: .default, title: "Delete", handler: { (action, indexPath) in
-            print("Delete tapped")
-            
-            let index = Int(indexPath.row)
-            // remove the item from the data model
-            self.bikeRouteStore.remove(indexOfList: index)
-            
-            // delete the table view row
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.reloadData()
-                    })
-        deleteAction.backgroundColor = UIColor.red
-        
-        return [insertAction, deleteAction]
-    }
+//    // do delete copy selected record
+//    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//        
+//        // action one
+//        let insertAction = UITableViewRowAction(style: .default, title: "Copy", handler: { (action, indexPath) in
+//             print("Copy tapped")
+//            
+//            let bikeRoute = self.bikeRouteStore.getAllBikeRoutes()[indexPath.row]
+//            self.bikeRouteStore.insert(bikeRoute: bikeRoute)
+//            tableView.reloadData()
+//         })
+//         insertAction.backgroundColor = UIColor.blue
+//    
+//         // action two
+//         let deleteAction = UITableViewRowAction(style: .default, title: "Delete", handler: { (action, indexPath) in
+//            print("Delete tapped")
+//            
+//            let index = Int(indexPath.row)
+//            // remove the item from the data model
+//            self.bikeRouteStore.remove(indexOfList: index)
+//            
+//            // delete the table view row
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//            tableView.reloadData()
+//                    })
+//        deleteAction.backgroundColor = UIColor.red
+//        
+//        return [insertAction, deleteAction]
+//    }
     @IBAction func editEntry(_ sender: Any) {
         print ("editEntry() ")
     }
@@ -103,15 +117,17 @@ class BikeRouteTableViewController : UITableViewController{
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
     }
+    
     // cache edited record for saving
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editBikeTour" {
             guard let editBikeTourNavigationController = segue.destination as? UINavigationController, let editBikeTourViewController = editBikeTourNavigationController.viewControllers.first as? NewBikeTourViewController else {
                 return
             }
-            let indexPath = tableView.indexPathForSelectedRow?.row
-            let bikerRoute = bikeRouteStore.getAllBikeRoutes()[indexPath!]
-            editBikeTourViewController.setAttributes(bikeRoute: bikerRoute, tableIndex: indexPath!)
+            let indexPath = tableView.indexPathForSelectedRow
+            editBikeTourViewController.bikeRoute = fetchedResultsController.object(at: indexPath!)
+            editBikeTourViewController.managedObjectContext = managedObjectContext
+            
         }
     }
 }

@@ -8,6 +8,7 @@
 // later: https://www.raywenderlich.com/90971/introduction-mapkit-swift-tutorial
 
 import UIKit
+import CoreData
 
 class NewBikeTourViewController: UIViewController {
     @IBOutlet weak var beforeLabel: UILabel!
@@ -34,13 +35,16 @@ class NewBikeTourViewController: UIViewController {
     
     @IBOutlet weak var locationTextField: UITextField!
     
-    var startReviewBikeCriteria = ReviewBikeCriteria()
+//    var startReviewBikeCriteria = ReviewBikeCriteria()
+//    
+//    var finishReviewBikeCriteria = ReviewBikeCriteria()
+//    
+    var startReviewBikeCriteria = CDReviewBikeCriteria()
+  
+    var finishReviewBikeCriteria = CDReviewBikeCriteria()
     
-    var finishReviewBikeCriteria = ReviewBikeCriteria()
-    
-    var tableIndex = Int(-1)
-    
-    var bikeRoute: BikeRoute?
+    var bikeRoute: CDBikeRoute?
+    var managedObjectContext: NSManagedObjectContext!
     
     var mapLocation = MapLocation()
     
@@ -62,52 +66,52 @@ class NewBikeTourViewController: UIViewController {
 //        })
 //       // temperaturTextField.text = weather.wetter
         
-        if(isEditing){
-            print ("Modus Eding")
-        }
+        
         datePicker.addTarget(self, action: #selector(datePickerChanged(datePicker:)), for: . valueChanged)
         dateLabel.text = DateFormatter.standard.string(from: datePicker.date)
 
-        if let bikeRoute = self.bikeRoute {
-            mileageTextField.text = String( "\(bikeRoute.driveDuration)")
+        if let bikeRoute = bikeRoute {
+            mileageTextField.text = String( "\(bikeRoute.duration)")
             temperaturTextField.text = String( "\(bikeRoute.temperatur)")
             distanceTextField.text = String( "\(bikeRoute.distance)")
             locationTextField.text = bikeRoute.location
              
-            dateLabel.text = DateFormatter.standard.string(from: bikeRoute.date)
-            datePicker.date =   bikeRoute.date
+            dateLabel.text = DateFormatter.standard.string(from: bikeRoute.date! as Date)
+            datePicker.date =   bikeRoute.date! as Date
             tourBreakCountTextField.text = String( "\(bikeRoute.tourBreakCount)")
+            beforeSlider.value = 5
+            finishSlider.value = 5
             
-            startReviewBikeCriteria.mapEnumCriteria = bikeRoute.startCriteria.mapEnumCriteria
-            finishReviewBikeCriteria.mapEnumCriteria = bikeRoute.finishCriteria.mapEnumCriteria
+    //        startReviewBikeCriteria.mapEnumCriteria = bikeRoute.startCriteria.mapEnumCriteria
+//            finishReviewBikeCriteria.mapEnumCriteria = bikeRoute.finishCriteria.mapEnumCriteria
             
-            setAndCalcReview(reviewBikeCriteria: bikeRoute.startCriteria, slider: beforeSlider, label: beforeLabel)
-            setAndCalcReview(reviewBikeCriteria: bikeRoute.finishCriteria, slider: finishSlider, label: finishLabel)
-            mapLocation.location = bikeRoute.location
+            setAndCalcReview(cdReviewBikeCriteria: bikeRoute.selfConfidenceBefore!, slider: beforeSlider, label: beforeLabel)
+            setAndCalcReview(cdReviewBikeCriteria: bikeRoute.selfConfidenceAfter!, slider: finishSlider, label: finishLabel)
+            //mapLocation.location = bikeRoute.location
+        } else {
+            bikeRoute = CDBikeRoute(context: managedObjectContext)
         }
 
     }
-   
-    func setAttributes(bikeRoute : BikeRoute, tableIndex : Int){
-        self.tableIndex = tableIndex
-        self.bikeRoute = bikeRoute
+    func setAndCalcReview (cdReviewBikeCriteria : CDReviewBikeCriteria, slider: UISlider, label: UILabel){
+        let result = CalcCriteria.calcAverage(cdReviewBikeCriteria : cdReviewBikeCriteria)
+        label.text = String(result)
+        slider.value = Float(result)
     }
+    
     
     func datePickerChanged(datePicker:UIDatePicker) {
         dateLabel.text = DateFormatter.standard.string(from: datePicker.date)
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-          // Dispose of any resources that can be recreated.
-        
     }
     
     @IBAction func cancelButton(_ sender: UIBarButtonItem){
         back()
     }
+    
     func back() {
         navigationController?.presentingViewController?.dismiss(animated: true)
     }
+    
     func alert(message: String, messageType : String, returnType : String) {
         
         let alertView = UIAlertController(title: messageType, message: message, preferredStyle: .alert)
@@ -164,23 +168,17 @@ class NewBikeTourViewController: UIViewController {
             alert(message: "Temperatur fehlt!", messageType: "Warnung", returnType: "Ok",textField: temperaturTextField)
             return
         }
-        if  startReviewBikeCriteria.mapEnumCriteria.count < 6  {
-            alert(message:  "Erste Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",textSlider: beforeSlider)
-            return
-        }
-        if   finishReviewBikeCriteria.mapEnumCriteria.count < 6  {
-            alert(message: "Zweite Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",textSlider: finishSlider)
-            return
-        }
-        let bikeRoute = BikeRoute(driveDuration: driveDuration,location:location, distance: distance, tourBreakCount: tourBreakCount, date: datePicker.date, temperatur: temperatur, startCriteria: startReviewBikeCriteria, finishCriteria: finishReviewBikeCriteria)
-        let br = BikeRouteStore()
-        if(tableIndex == -1){
-            br.store(bikeRoute: bikeRoute)
-        } else {
-            br.store(bikeRoute: bikeRoute, tabIndex: tableIndex)
-            tableIndex = -1
-        }
-      //  print(bikeRoute)
+//        if startReviewBikeCriteria.mapEnumCriteria.count < 6  {
+//            alert(message:  "Erste Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",textSlider: beforeSlider)
+//            return
+//        }
+//        if finishReviewBikeCriteria.mapEnumCriteria.count < 6  {
+//            alert(message: "Zweite Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",textSlider: finishSlider)
+//            return
+//        }
+        bikeRoute?.date = NSDate()
+        try? bikeRoute?.managedObjectContext?.save()
+        
         back()
     }
 
@@ -204,11 +202,7 @@ class NewBikeTourViewController: UIViewController {
         }
     }
    
-    func setAndCalcReview (reviewBikeCriteria : ReviewBikeCriteria, slider: UISlider, label: UILabel){
-        let result = CalcCriteria.calcAverage(reviewBikeCriteria: reviewBikeCriteria)
-        label.text = String(result)
-        slider.value = Float(result)
-    }
+  
     
     func setLocation (){
           self.locationTextField.text = mapLocation.location
@@ -227,11 +221,11 @@ class NewBikeTourViewController: UIViewController {
         guard let driveReviewViewController = segue.source as? DriveReviewViewController else { return }
         if driveReviewViewController.reviewType == "startIdent" {
             startReviewBikeCriteria = driveReviewViewController.reviewBikeCriteria
-            setAndCalcReview(reviewBikeCriteria : startReviewBikeCriteria,slider: beforeSlider, label: beforeLabel)
+            setAndCalcReview(cdReviewBikeCriteria : startReviewBikeCriteria,slider: beforeSlider, label: beforeLabel)
         }
         else if driveReviewViewController.reviewType == "finishIdent" {
             finishReviewBikeCriteria = driveReviewViewController.reviewBikeCriteria
-             setAndCalcReview(reviewBikeCriteria : finishReviewBikeCriteria,slider: finishSlider,label: finishLabel)
+             setAndCalcReview(cdReviewBikeCriteria : finishReviewBikeCriteria,slider: finishSlider,label: finishLabel)
         }
     }
 }
