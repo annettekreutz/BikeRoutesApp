@@ -42,7 +42,7 @@ class NewBikeTourViewController: UIViewController {
     var bikeRoute: CDBikeRoute?
     
     var managedObjectContext: NSManagedObjectContext!
-    
+  
     var mapLocation = MapLocation()
     
     // view starting
@@ -71,10 +71,29 @@ class NewBikeTourViewController: UIViewController {
             setAndCalcReview(cdReviewBikeCriteria: startReviewBikeCriteria, slider: beforeSlider, label: beforeLabel)
             setAndCalcReview(cdReviewBikeCriteria: finishReviewBikeCriteria, slider: finishSlider, label: finishLabel)
         } else {
+             managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
+            
+           // let newSelfConfidence = CDReviewBikeCriteria(context: managedObjectContext)
+            startReviewBikeCriteria = initReviewBikeCriteria(cdReviewBikeCriteria: CDReviewBikeCriteria(context: managedObjectContext))
+            finishReviewBikeCriteria = initReviewBikeCriteria(cdReviewBikeCriteria: CDReviewBikeCriteria(context: managedObjectContext))
+
+//             managedObjectContext = NSManagedObjectContext(NSManagedObjectContextConcurrencyType: .mainQueueConcurrencyType)
              bikeRoute = CDBikeRoute(context: managedObjectContext)
         }
 
     }
+    func initReviewBikeCriteria(cdReviewBikeCriteria : CDReviewBikeCriteria ) -> CDReviewBikeCriteria {
+        //let newSelfConfidence = CDReviewBikeCriteria(context: managedObjectContext)
+        let newSelfConfidence = cdReviewBikeCriteria
+        newSelfConfidence.breaking = Int16(0)
+        newSelfConfidence.kurve = Int16(0)
+        newSelfConfidence.quickly = Int16(0)
+        newSelfConfidence.slowly = Int16(0)
+        newSelfConfidence.starting = Int16(0)
+        newSelfConfidence.turn = Int16(0)
+        return newSelfConfidence
+    }
+    
     func setAndCalcReview (cdReviewBikeCriteria : CDReviewBikeCriteria, slider: UISlider, label: UILabel){
         let result = CalcCriteria.calcAverage(cdReviewBikeCriteria : cdReviewBikeCriteria)
         label.text = String(result)
@@ -146,7 +165,7 @@ class NewBikeTourViewController: UIViewController {
             return
         }
         
-        guard let temperatur = Double(temperaturTextField.text ?? "") else {
+         guard let temperatur = Double(temperaturTextField.text ?? "") else {
             alert(message: "Temperatur fehlt!", messageType: "Warnung", returnType: "Ok",textField: temperaturTextField)
             return
         }
@@ -172,7 +191,7 @@ class NewBikeTourViewController: UIViewController {
         if segue.identifier == "startIdent" {
             guard let driveReviewViewController = segue.destination as? DriveReviewViewController else { return }
             driveReviewViewController.setParams(reviewBikeCriteria: startReviewBikeCriteria, reviewType: "startIdent")
-            print(startReviewBikeCriteria.breaking)
+           // print(startReviewBikeCriteria.breaking)
         }
         if segue.identifier == "finishIdent" {
             guard let driveReviewViewController = segue.destination as? DriveReviewViewController else { return }

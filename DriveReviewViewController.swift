@@ -45,11 +45,11 @@ class DriveReviewViewController: UIViewController {
     override func viewDidLoad() {
         navigationItem.title = "Tour Review"
         initParams()
+       
         updateParams()
         super.viewDidLoad()
     }
-    
-    // cache params from edit view
+       // cache params from edit view
     func setParams( reviewBikeCriteria: CDReviewBikeCriteria, reviewType : String) {
         self.reviewBikeCriteria = reviewBikeCriteria
         self.reviewType = reviewType
@@ -74,10 +74,10 @@ class DriveReviewViewController: UIViewController {
     }
     // update slilders and label by params in this view
     func updateParams() {
-        let rev = reviewBikeCriteria
-        let ret = rev.turn
-        updateUiParams(uiSlider: turnSlider, uiILabel: turnLabel, destination: ret)
-        updateUiParams(uiSlider: kurveSlider, uiILabel: kurveLabel,destination:  reviewBikeCriteria.kurve)
+       // let rev = reviewBikeCriteria
+       
+        updateUiParams(uiSlider: turnSlider, uiILabel: turnLabel, destination: reviewBikeCriteria.turn)
+        updateUiParams(uiSlider: kurveSlider, uiILabel: kurveLabel,destination:  reviewBikeCriteria.kurve )
         updateUiParams(uiSlider: startSlider, uiILabel: startingLabel,destination:   reviewBikeCriteria.starting)
        
         updateUiParams(uiSlider: breakSlider, uiILabel: breakingLabel,destination:  reviewBikeCriteria.breaking)
