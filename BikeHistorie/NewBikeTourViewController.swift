@@ -34,38 +34,22 @@ class NewBikeTourViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var locationTextField: UITextField!
-    
-//    var startReviewBikeCriteria = ReviewBikeCriteria()
-//    
-//    var finishReviewBikeCriteria = ReviewBikeCriteria()
-//    
+   
     var startReviewBikeCriteria = CDReviewBikeCriteria()
   
     var finishReviewBikeCriteria = CDReviewBikeCriteria()
     
     var bikeRoute: CDBikeRoute?
+    
     var managedObjectContext: NSManagedObjectContext!
     
     var mapLocation = MapLocation()
     
-//    var weather = WeatherGetter()
-//   
     // view starting
     // load all saved biker data
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Tour"
-        
-//        let location = locationTextField.text
-//        //let location = mapLocation.location
-//        weather.getWeather(city: location!, callback: { weather in
-//            DispatchQueue.main.async {
-//                self.temperaturTextField.text = weather
-//            }
-//            
-//        })
-//       // temperaturTextField.text = weather.wetter
-        
         
         datePicker.addTarget(self, action: #selector(datePickerChanged(datePicker:)), for: . valueChanged)
         dateLabel.text = DateFormatter.standard.string(from: datePicker.date)
@@ -81,15 +65,13 @@ class NewBikeTourViewController: UIViewController {
             tourBreakCountTextField.text = String( "\(bikeRoute.tourBreakCount)")
             beforeSlider.value = 5
             finishSlider.value = 5
-            
-    //        startReviewBikeCriteria.mapEnumCriteria = bikeRoute.startCriteria.mapEnumCriteria
-//            finishReviewBikeCriteria.mapEnumCriteria = bikeRoute.finishCriteria.mapEnumCriteria
-            
-            setAndCalcReview(cdReviewBikeCriteria: bikeRoute.selfConfidenceBefore!, slider: beforeSlider, label: beforeLabel)
-            setAndCalcReview(cdReviewBikeCriteria: bikeRoute.selfConfidenceAfter!, slider: finishSlider, label: finishLabel)
-            //mapLocation.location = bikeRoute.location
+            startReviewBikeCriteria = bikeRoute.selfConfidenceBefore!
+            finishReviewBikeCriteria = bikeRoute.selfConfidenceAfter!
+           
+            setAndCalcReview(cdReviewBikeCriteria: startReviewBikeCriteria, slider: beforeSlider, label: beforeLabel)
+            setAndCalcReview(cdReviewBikeCriteria: finishReviewBikeCriteria, slider: finishSlider, label: finishLabel)
         } else {
-            bikeRoute = CDBikeRoute(context: managedObjectContext)
+             bikeRoute = CDBikeRoute(context: managedObjectContext)
         }
 
     }
@@ -190,6 +172,7 @@ class NewBikeTourViewController: UIViewController {
         if segue.identifier == "startIdent" {
             guard let driveReviewViewController = segue.destination as? DriveReviewViewController else { return }
             driveReviewViewController.setParams(reviewBikeCriteria: startReviewBikeCriteria, reviewType: "startIdent")
+            print(startReviewBikeCriteria.breaking)
         }
         if segue.identifier == "finishIdent" {
             guard let driveReviewViewController = segue.destination as? DriveReviewViewController else { return }
