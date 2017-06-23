@@ -29,8 +29,6 @@ class NewBikeTourViewController: UIViewController {
    
     @IBOutlet weak var dateLabel: UILabel!
     
-    
-    
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var locationTextField: UITextField!
@@ -72,15 +70,33 @@ class NewBikeTourViewController: UIViewController {
             setAndCalcReview(cdReviewBikeCriteria: finishReviewBikeCriteria, slider: finishSlider, label: finishLabel)
         } else {
              managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
-            
-           // let newSelfConfidence = CDReviewBikeCriteria(context: managedObjectContext)
+           
             startReviewBikeCriteria = initReviewBikeCriteria(cdReviewBikeCriteria: CDReviewBikeCriteria(context: managedObjectContext))
             finishReviewBikeCriteria = initReviewBikeCriteria(cdReviewBikeCriteria: CDReviewBikeCriteria(context: managedObjectContext))
-
-//             managedObjectContext = NSManagedObjectContext(NSManagedObjectContextConcurrencyType: .mainQueueConcurrencyType)
-             bikeRoute = CDBikeRoute(context: managedObjectContext)
+            bikeRoute = initCDReviewBikeCriteria()
         }
 
+    }
+    func initCDReviewBikeCriteria() -> CDBikeRoute{
+        mileageTextField.text = String("0")
+        temperaturTextField.text = String("20")
+        distanceTextField.text = String("0")
+        locationTextField.text = String()
+        datePicker.date =  Date()
+        tourBreakCountTextField.text = String("0")
+
+        // verbinde Daten
+        let bikeRoute = CDBikeRoute(context: managedObjectContext)
+        bikeRoute.date = datePicker.date as NSDate
+        bikeRoute.distance = Double(distanceTextField.text!)!
+        bikeRoute.temperatur = Double(temperaturTextField.text!)!
+        bikeRoute.duration = Double(mileageTextField.text!)!
+        bikeRoute.location =  locationTextField.text!
+        bikeRoute.tourBreakCount = Int16(tourBreakCountTextField.text!)!
+
+        bikeRoute.selfConfidenceBefore = startReviewBikeCriteria
+        bikeRoute.selfConfidenceAfter = finishReviewBikeCriteria
+        return bikeRoute
     }
     func initReviewBikeCriteria(cdReviewBikeCriteria : CDReviewBikeCriteria ) -> CDReviewBikeCriteria {
         //let newSelfConfidence = CDReviewBikeCriteria(context: managedObjectContext)
@@ -152,34 +168,49 @@ class NewBikeTourViewController: UIViewController {
             alert(message: "Zielort fehlt!", messageType: "Warnung", returnType: "Ok",textField: locationTextField)
             return
         }
-        guard let driveDuration = TimeInterval(mileageTextField.text ?? "") else {
+        guard  (TimeInterval(mileageTextField.text ?? "") != nil) else {
             alert(message: "Kilometerstand fehlt!", messageType: "Warnung", returnType: "Ok", textField: mileageTextField)
             return
         }
-        guard let distance = Double(distanceTextField.text ?? "") else {
+        guard (Double(distanceTextField.text ?? "") != nil) else {
             alert(message: "gefahrene Kilomenter fehlen!", messageType: "Warnung", returnType: "Ok",textField: distanceTextField)
             return
         }
-        guard let tourBreakCount = Int(tourBreakCountTextField.text ?? "") else {
+        guard Int(tourBreakCountTextField.text ?? "") != nil else {
             alert(message: "Anzahl Pausen fehlen!", messageType: "Warnung", returnType: "Ok",textField: tourBreakCountTextField)
             return
         }
         
-         guard let temperatur = Double(temperaturTextField.text ?? "") else {
+         guard Double(temperaturTextField.text ?? "") != nil else {
             alert(message: "Temperatur fehlt!", messageType: "Warnung", returnType: "Ok",textField: temperaturTextField)
             return
         }
-//        if startReviewBikeCriteria.mapEnumCriteria.count < 6  {
-//            alert(message:  "Erste Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",textSlider: beforeSlider)
-//            return
-//        }
-//        if finishReviewBikeCriteria.mapEnumCriteria.count < 6  {
-//            alert(message: "Zweite Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",textSlider: finishSlider)
-//            return
-//        }
+        if startReviewBikeCriteria.breaking < 1 ||   startReviewBikeCriteria.quickly < 1 ||
+            startReviewBikeCriteria.kurve < 1 ||  startReviewBikeCriteria.slowly < 1 ||
+            startReviewBikeCriteria.turn < 1 ||  startReviewBikeCriteria.starting < 1 {
+            alert(message:  "Erste Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",textSlider: beforeSlider)
+            return
+        }
+        if finishReviewBikeCriteria.breaking < 1 ||   finishReviewBikeCriteria.quickly < 1 ||
+            finishReviewBikeCriteria.kurve < 1 ||  finishReviewBikeCriteria.slowly < 1 ||
+            finishReviewBikeCriteria.turn < 1 ||  finishReviewBikeCriteria.starting < 1 {
+            alert(message: "Zweite Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",textSlider: finishSlider)
+            return
+        }
         bikeRoute?.date = NSDate()
-        try? bikeRoute?.managedObjectContext?.save()
-        
+//        try? bikeRoute?.managedObjectContext?.save()
+        do {
+            try bikeRoute?.managedObjectContext?.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nserror = error as NSError
+           // fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            let error = String(describing: nserror)
+            let errorInf  = String(describing: nserror.userInfo)
+            alert(message: "Datensatz wurde nicht gespeichert: ", messageType: error + " " + errorInf , returnType: "OK" )
+            return
+        }
         back()
     }
 
