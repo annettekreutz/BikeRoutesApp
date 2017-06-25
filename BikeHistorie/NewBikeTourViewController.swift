@@ -41,6 +41,8 @@ class NewBikeTourViewController: UIViewController {
     
     var managedObjectContext: NSManagedObjectContext!
   
+//    var managedObjectContext = UIApplication.shared.delegate as NSManagedObjectContext
+//    
     var mapLocation = MapLocation()
     
     // view starting
@@ -51,7 +53,16 @@ class NewBikeTourViewController: UIViewController {
         
         datePicker.addTarget(self, action: #selector(datePickerChanged(datePicker:)), for: . valueChanged)
         dateLabel.text = DateFormatter.standard.string(from: datePicker.date)
+        let br = self.bikeRoute
 
+        if  br == nil{
+             managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
+            
+//            startReviewBikeCriteria = initReviewBikeCriteria()
+//            finishReviewBikeCriteria = initReviewBikeCriteria()
+            bikeRoute = initCDReviewBikeCriteria(cdBikeRoute: CDBikeRoute(context: managedObjectContext))
+
+        }
         if let bikeRoute = bikeRoute {
             mileageTextField.text = String( "\(bikeRoute.duration)")
             temperaturTextField.text = String( "\(bikeRoute.temperatur)")
@@ -63,53 +74,56 @@ class NewBikeTourViewController: UIViewController {
             tourBreakCountTextField.text = String( "\(bikeRoute.tourBreakCount)")
             beforeSlider.value = 5
             finishSlider.value = 5
-            startReviewBikeCriteria = bikeRoute.selfConfidenceBefore!
-            finishReviewBikeCriteria = bikeRoute.selfConfidenceAfter!
+            startReviewBikeCriteria = updateReviewBikeCriteria(cdReviewBikeCriteria: bikeRoute.selfConfidenceBefore!)
+            
+            finishReviewBikeCriteria = updateReviewBikeCriteria(cdReviewBikeCriteria: bikeRoute.selfConfidenceAfter!)
            
             setAndCalcReview(cdReviewBikeCriteria: startReviewBikeCriteria, slider: beforeSlider, label: beforeLabel)
             setAndCalcReview(cdReviewBikeCriteria: finishReviewBikeCriteria, slider: finishSlider, label: finishLabel)
-        } else {
-             managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
-           
-            startReviewBikeCriteria = initReviewBikeCriteria(cdReviewBikeCriteria: CDReviewBikeCriteria(context: managedObjectContext))
-            finishReviewBikeCriteria = initReviewBikeCriteria(cdReviewBikeCriteria: CDReviewBikeCriteria(context: managedObjectContext))
-            bikeRoute = initCDReviewBikeCriteria()
         }
-
     }
-    func initCDReviewBikeCriteria() -> CDBikeRoute{
-        mileageTextField.text = String("0")
-        temperaturTextField.text = String("20")
-        distanceTextField.text = String("0")
-        locationTextField.text = String()
-        datePicker.date =  Date()
-        tourBreakCountTextField.text = String("0")
+    func initCDReviewBikeCriteria(cdBikeRoute : CDBikeRoute) -> CDBikeRoute{
 
         // verbinde Daten
-        let bikeRoute = CDBikeRoute(context: managedObjectContext)
-        bikeRoute.date = datePicker.date as NSDate
-        bikeRoute.distance = Double(distanceTextField.text!)!
-        bikeRoute.temperatur = Double(temperaturTextField.text!)!
-        bikeRoute.duration = Double(mileageTextField.text!)!
-        bikeRoute.location =  locationTextField.text!
-        bikeRoute.tourBreakCount = Int16(tourBreakCountTextField.text!)!
+        var bikeRoute = cdBikeRoute
+        bikeRoute.date = NSDate()
+        bikeRoute.distance = Double()
+        bikeRoute.temperatur = Double()
+        bikeRoute.duration = Double()
+        bikeRoute.location =  String("Test")
+        bikeRoute.tourBreakCount = Int16()
 
-        bikeRoute.selfConfidenceBefore = startReviewBikeCriteria
-        bikeRoute.selfConfidenceAfter = finishReviewBikeCriteria
+//        startReviewBikeCriteria = initReviewBikeCriteria(cReviewBikeCriteria: CDReviewBikeCriteria(context: managedObjectContext))
+//        finishReviewBikeCriteria = initReviewBikeCriteria(cReviewBikeCriteria: CDReviewBikeCriteria(context: managedObjectContext))
+        bikeRoute.selfConfidenceBefore = initReviewBikeCriteria(cReviewBikeCriteria: CDReviewBikeCriteria(context: managedObjectContext))
+        bikeRoute.selfConfidenceAfter = initReviewBikeCriteria(cReviewBikeCriteria: CDReviewBikeCriteria(context: managedObjectContext))
+
+ 
         return bikeRoute
     }
-    func initReviewBikeCriteria(cdReviewBikeCriteria : CDReviewBikeCriteria ) -> CDReviewBikeCriteria {
-        //let newSelfConfidence = CDReviewBikeCriteria(context: managedObjectContext)
-        let newSelfConfidence = cdReviewBikeCriteria
-        newSelfConfidence.breaking = Int16(0)
-        newSelfConfidence.kurve = Int16(0)
-        newSelfConfidence.quickly = Int16(0)
-        newSelfConfidence.slowly = Int16(0)
-        newSelfConfidence.starting = Int16(0)
-        newSelfConfidence.turn = Int16(0)
+    func initReviewBikeCriteria(cReviewBikeCriteria: CDReviewBikeCriteria) -> CDReviewBikeCriteria {
+        var newSelfConfidence = cReviewBikeCriteria
+//        let newSelfConfidence = CDReviewBikeCriteria()
+        newSelfConfidence.breaking = Int16(1)
+        newSelfConfidence.kurve = Int16(1)
+        newSelfConfidence.quickly = Int16(1)
+        newSelfConfidence.slowly = Int16(1)
+        newSelfConfidence.starting = Int16(1)
+        newSelfConfidence.turn = Int16(1)
         return newSelfConfidence
     }
-    
+    func updateReviewBikeCriteria(cdReviewBikeCriteria : CDReviewBikeCriteria ) -> CDReviewBikeCriteria {
+        let newSelfConfidence = cdReviewBikeCriteria
+        // let newSelfConfidence = cdReviewBikeCriteria
+        newSelfConfidence.breaking = cdReviewBikeCriteria.breaking
+        newSelfConfidence.kurve = cdReviewBikeCriteria.kurve
+        newSelfConfidence.quickly = cdReviewBikeCriteria.quickly
+        newSelfConfidence.slowly = cdReviewBikeCriteria.slowly
+        newSelfConfidence.starting = cdReviewBikeCriteria.starting
+        newSelfConfidence.turn = cdReviewBikeCriteria.turn
+        return newSelfConfidence
+    }
+
     func setAndCalcReview (cdReviewBikeCriteria : CDReviewBikeCriteria, slider: UISlider, label: UILabel){
         let result = CalcCriteria.calcAverage(cdReviewBikeCriteria : cdReviewBikeCriteria)
         label.text = String(result)
@@ -197,21 +211,34 @@ class NewBikeTourViewController: UIViewController {
             alert(message: "Zweite Kriterien unvollständig", messageType: "Warnung", returnType: "Ok",textSlider: finishSlider)
             return
         }
-        bikeRoute?.date = NSDate()
-//        try? bikeRoute?.managedObjectContext?.save()
+        
+        
+ 
         do {
             try bikeRoute?.managedObjectContext?.save()
+            back()
+            return
         } catch {
+            
             // Replace this implementation with code to handle the error appropriately.
             // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             let nserror = error as NSError
            // fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             let error = String(describing: nserror)
             let errorInf  = String(describing: nserror.userInfo)
-            alert(message: "Datensatz wurde nicht gespeichert: ", messageType: error + " " + errorInf , returnType: "OK" )
-            return
+            print("Datensatz wurde nicht gespeichert: " +   errorInf  + " Err: " + error)
+//            alert(message: "Datensatz wurde nicht gespeichert: ", messageType: error + " " + errorInf , returnType: "OK" )
+            
+            //return
         }
-        back()
+//        do {
+//            bikeRoute?.managedObjectContext?.insert(bikeRoute!)
+//            back()
+//        } catch {
+//            let nserror = error as NSError
+//            let errorInf  = String(describing: nserror.userInfo)
+//            print("Datensatz wurde nicht gespeichert: " +   errorInf )
+//        }
     }
 
     @IBAction func goBack(_ sender: Any?) {

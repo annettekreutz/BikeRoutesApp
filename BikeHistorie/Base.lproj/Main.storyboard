@@ -170,7 +170,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0pr-KK-GM6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1062" y="-22"/>
+            <point key="canvasLocation" x="-1066" y="-214"/>
         </scene>
         <!--Drive Review View Controller-->
         <scene sceneID="ejO-9L-3vY">
@@ -697,7 +697,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="KrJ-mf-L0W"/>
         <segue reference="ad2-Xl-Zmj"/>
+        <segue reference="vFh-lb-bQN"/>
     </inferredMetricsTieBreakers>
 </document>

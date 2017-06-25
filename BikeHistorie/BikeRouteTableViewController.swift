@@ -13,7 +13,7 @@ class BikeRouteTableViewController : UITableViewController {
     
     let bikeRouteStore = BikeRouteStore()
     var managedObjectContext: NSManagedObjectContext!
-    var fetchedResultsController: NSFetchedResultsController<CDBikeRoute>!
+   var fetchedResultsController: NSFetchedResultsController<CDBikeRoute>!
     
     // view starting
     override func viewDidLoad() {
@@ -65,6 +65,36 @@ class BikeRouteTableViewController : UITableViewController {
 //            return
 //        }
 //    }
+    // do delete copy selected record
+//    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//        
+//        // action one
+//        let insertAction = UITableViewRowAction(style: .default, title: "Copy", handler: { (action, indexPath) in
+//            print("Copy tapped")
+//            
+//            let bikeRoute = self.bikeRouteStore.getAllBikeRoutes()[indexPath.row]
+//            self.bikeRouteStore.insert(bikeRoute: bikeRoute)
+//            tableView.reloadData()
+//        })
+//        insertAction.backgroundColor = UIColor.blue
+//        
+//        // action two
+//        let deleteAction = UITableViewRowAction(style: .default, title: "Delete", handler: { (action, indexPath) in
+//            print("Delete tapped")
+//            
+//            let index = Int(indexPath.row)
+//            // remove the item from the data model
+//            self.bikeRouteStore.remove(indexOfList: index)
+//            
+//            // delete the table view row
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//            tableView.reloadData()
+//        })
+//        deleteAction.backgroundColor = UIColor.red
+//        
+//        return [insertAction, deleteAction]
+//    }
+    
     
     func infoOfSystemRecord() -> String{
         let bikeRoutes = bikeRouteStore.getAllBikeRoutes()
