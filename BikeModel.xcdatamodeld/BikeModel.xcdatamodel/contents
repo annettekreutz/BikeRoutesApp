@@ -2,10 +2,10 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CDBikeRoute" representedClassName="CDBikeRoute" syncable="YES" codeGenerationType="class">
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="519115980" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="distance" attributeType="Double" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="duration" attributeType="Double" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="distance" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="duration" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="location" attributeType="String" syncable="YES"/>
-        <attribute name="temperatur" optional="YES" attributeType="Double" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="temperatur" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="tourBreakCount" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="selfConfidenceAfter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDReviewBikeCriteria" syncable="YES"/>
         <relationship name="selfConfidenceBefore" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDReviewBikeCriteria" syncable="YES"/>
